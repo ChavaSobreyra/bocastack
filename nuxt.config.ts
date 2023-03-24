@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     baseURL: process.env.NUXT_BASE_URL ?? 'http://localhost:3001',
     jiraAuth: process.env.JIRA_AUTH ?? '',
+    basicAuth: process.env.NUXT_BASIC_AUTH ?? '',
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
