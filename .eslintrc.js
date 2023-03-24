@@ -45,5 +45,6 @@ module.exports = {
     eqeqeq: 'error',
     'dot-notation': 'error',
     curly: ['error', 'multi'],
+    'vue/multi-word-component-names': 'off',
   },
 }
