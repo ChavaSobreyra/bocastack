@@ -7,6 +7,7 @@
     "lint": "TIMING=1 eslint --ext \".js,.ts,.vue\" .",
     "lint:fix": "TIMING=1 eslint --ext \".js,.ts,.vue\" . --fix",
     "test:unit": "jest",
+    "test:component": "vitest --config vite.test.config.js",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
