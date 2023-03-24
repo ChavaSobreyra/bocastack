@@ -3,7 +3,6 @@ node_modules
 .nuxt
 .vscode/*
 *.tsbuildinfo
-package-lock.json
 .eslintcache
 tmp/*
 test_reports
