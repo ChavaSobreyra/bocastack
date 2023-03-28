@@ -8,6 +8,7 @@
     >
       <p class="mt-1.5 text-xl text-gray-900">
         <span v-if="issue.fields.flagged" class="mr-2">🛑</span>
+        <span v-if="issue.fields.status.name === 'UAT'" class="mr-2">👀</span>
         {{ issue.fields.summary }}
       </p>
       <div class="flex items-center justify-self-end">
