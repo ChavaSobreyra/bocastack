@@ -44,7 +44,7 @@ function replaceAttachments(text: string, attachments: any) {
       `/secure/attachment/${attachment.id}/${attachment.id}_${attachment.filename}`,
       `${attachment.content}`,
     )
-
+  text = text.replaceAll(/<a([^>]+)>/gi, '<a$1 style="color: blue;">')
   return text
 }
 </script>
