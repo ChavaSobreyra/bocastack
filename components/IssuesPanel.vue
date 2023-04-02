@@ -17,19 +17,10 @@
         {{ data.fields.customfield_10028 ? data.fields.customfield_10028 : '-' }}
       </p>
     </div>
-    <div class="break-words" v-html="data.renderedFields.description"></div>
-
-    <div v-for="attachment of data.fields.attachment" :key="attachment.content">
-      <a h :href="attachment.content" target="_blank">
-        <img
-          :src="attachment.content"
-          alt="Image description"
-          title="Image title"
-          width="450"
-          height="300"
-        />
-      </a>
-    </div>
+    <div
+      class="break-words"
+      v-html="replaceAttachments(data.renderedFields.description, data.renderedFields.attachment)"
+    ></div>
   </div>
 </template>
 
@@ -37,7 +28,6 @@
 const props = defineProps<{
   selectedIssueId: number
 }>()
-
 const { data } = await useIssueRenderedFieldsQuery(props.selectedIssueId)
 
 watch(
@@ -47,6 +37,16 @@ watch(
     data.value = newData.value
   },
 )
+
+function replaceAttachments(text: string, attachments: any) {
+  for (const attachment of attachments)
+    text = text.replaceAll(
+      `/secure/attachment/${attachment.id}/${attachment.id}_${attachment.filename}`,
+      `${attachment.content}`,
+    )
+
+  return text
+}
 </script>
 
 <style scoped>
