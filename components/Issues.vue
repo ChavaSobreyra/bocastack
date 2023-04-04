@@ -1,10 +1,14 @@
 <template>
-  <!-- <pre>{{ issues }}</pre> -->
   <ul role="list" class="divide-y divide-gray-200">
     <li
       v-for="issue of issues"
       :key="issue.id"
       class="grid select-none grid-flow-col py-2 px-4 hover:bg-gray-100"
+      :class="{
+        'bg-gray-100': props.selectedIssueId === issue.id,
+        'bg-white-100': props.selectedIssueId !== issue.id,
+      }"
+      @click="emit('selected', issue.id)"
     >
       <p class="mt-1.5 text-xl text-gray-900">
         <span v-if="issue.fields.flagged" class="mr-2">🛑</span>
@@ -36,11 +40,14 @@ const { $dayjs } = useNuxtApp()
 const props = defineProps<{
   activeSprintId: number
   filter: 'recently-completed' | 'in-progress' | 'next-up'
+  selectedIssueId: number | null
 }>()
 
 const { data } = useIssuesQuery(props.activeSprintId)
 
 const issues = ref([])
+
+const emit = defineEmits(['selected'])
 
 watch(data, setIssues, { immediate: true })
 
