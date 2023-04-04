@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div v-if="!loading" class="container mx-auto">
     <div
       class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none"
     >
@@ -42,16 +42,31 @@
     </div>
     <div class="fixed inset-0 z-40 bg-black opacity-25"></div>
   </div>
+  <div v-else>Loading the funnies...</div>
 </template>
 
 <script setup lang="ts">
 const showPunchline = ref(false)
 const joke = ref(null)
+const loading = ref(true)
 const emit = defineEmits(['closeModal'])
 
-onBeforeMount(async () => {
-  await getJoke()
-})
+async function getJoke() {
+  try {
+    const response = await fetch(
+      'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun?blacklistFlags=nsfw,religious,political,racist,sexist,explicit',
+    )
+    joke.value = await response.json()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+function revealPunchline() {
+  showPunchline.value = !showPunchline.value
+}
 
 function close() {
   joke.value = null
@@ -59,14 +74,5 @@ function close() {
   emit('closeModal')
 }
 
-async function getJoke() {
-  joke.value = await $fetch(
-    'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun?blacklistFlags=nsfw,religious,political,racist,sexist,explicit',
-  )
-  return joke
-}
-
-function revealPunchline() {
-  showPunchline.value = !showPunchline.value
-}
+getJoke()
 </script>
