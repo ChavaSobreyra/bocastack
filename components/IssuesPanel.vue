@@ -38,14 +38,16 @@ watch(
   },
 )
 
-function replaceAttachments(text: string, attachments: any) {
-  for (const attachment of attachments)
-    text = text.replaceAll(
-      `/secure/attachment/${attachment.id}/${attachment.id}_${attachment.filename}`,
-      `${attachment.content}`,
-    )
-  text = text.replaceAll(/<a([^>]+)>/gi, '<a$1 style="color: blue;">')
-  return text
+function replaceAttachments(text: string, attachments: any[]) {
+  let updatedText = text
+
+  for (const attachment of attachments) {
+    const regex = new RegExp(`/secure/attachment/${attachment.id}/${attachment.id}_[^\\s"]+`, 'g')
+    updatedText = updatedText.replace(regex, `${attachment.content}`)
+  }
+  updatedText = updatedText.replaceAll(/<a([^>]+)>/gi, '<a$1 style="color: blue;">')
+
+  return updatedText
 }
 </script>
 
