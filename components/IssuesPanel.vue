@@ -17,6 +17,10 @@
       <p class="rounded-full bg-gray-100 px-1 text-center font-semibold text-gray-800">
         {{ data.fields.customfield_10028 ? data.fields.customfield_10028 : '-' }}
       </p>
+      <span class="pl-4 pr-2 font-semibold text-gray-600">Epic:</span>
+      <p class="rounded-full bg-blue-500 px-1 text-center font-semibold text-white">
+        {{ data.fields.parent.fields.summary ? data.fields.parent.fields.summary : '-' }}
+      </p>
     </div>
     <div
       class="break-words"
