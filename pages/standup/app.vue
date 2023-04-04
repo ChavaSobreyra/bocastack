@@ -47,7 +47,11 @@
         </div>
       </section>
       <EndStandupModal v-if="showModal" @close-modal="showModal = false" />
-      <IssuesPanel v-if="selectedIssueId" :selected-issue-id="selectedIssueId" />
+      <IssuesPanel
+        v-if="selectedIssueId"
+        :selected-issue-id="selectedIssueId"
+        @close-panel="selectedIssueId = null"
+      />
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div v-if="data.fields" class="side-panel bg-gray-100">
+    <button @click="$emit('close-panel')"><XCircleIcon class="h-6 w-6 text-slate-500" /></button>
     <p class="mt-1.5 text-xl text-gray-900">
       <span v-if="data.fields.flagged" class="mr-2">🛑</span>
       <span v-if="data.fields.status.name === 'UAT'" class="mr-2">👀</span>
@@ -25,9 +26,12 @@
 </template>
 
 <script setup lang="ts">
+import { XCircleIcon } from '@heroicons/vue/24/solid'
+
 const props = defineProps<{
   selectedIssueId: number
 }>()
+
 const { data } = await useIssueRenderedFieldsQuery(props.selectedIssueId)
 
 watch(
