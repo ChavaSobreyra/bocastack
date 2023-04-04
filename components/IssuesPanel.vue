@@ -1,6 +1,11 @@
 <template>
   <div v-if="data.fields" class="side-panel bg-gray-100">
-    <button @click="$emit('close-panel')"><XCircleIcon class="h-6 w-6 text-slate-500" /></button>
+    <div class="flex justify-end">
+      <button @click="$emit('close-panel')">
+        <XCircleIcon class="h-6 w-6 text-slate-500" />
+      </button>
+    </div>
+
     <p class="mt-1.5 text-xl text-gray-900">
       <span v-if="data.fields.flagged" class="mr-2">🛑</span>
       <span v-if="data.fields.status.name === 'UAT'" class="mr-2">👀</span>
@@ -17,9 +22,15 @@
       <p class="rounded-full bg-gray-100 px-1 text-center font-semibold text-gray-800">
         {{ data.fields.customfield_10028 ? data.fields.customfield_10028 : '-' }}
       </p>
-      <span class="pl-4 pr-2 font-semibold text-gray-600">Epic:</span>
-      <p class="rounded-full bg-blue-500 px-1 text-center font-semibold text-white">
-        {{ data.fields.parent.fields.summary ? data.fields.parent.fields.summary : '-' }}
+      <span class="pl-2 pr-2 font-semibold text-gray-600">Epic:</span>
+      <p
+        class="rounded-full p-2 text-center font-semibold text-white"
+        :class="{
+          'bg-blue-500': data.fields.parent.fields.summary !== 'Bug',
+          'bg-red-500': data.fields.parent.fields.summary === 'Bug',
+        }"
+      >
+        {{ data.fields.parent.fields.summary }}
       </p>
     </div>
     <div
