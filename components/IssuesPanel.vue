@@ -82,7 +82,9 @@ function replaceAttachments(text: string, attachments: any[]) {
   padding: 20px;
   overflow-y: scroll;
 }
+</style>
 
+<style>
 #jira-html p {
   margin-top: 1em;
 }
