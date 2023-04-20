@@ -34,6 +34,7 @@
       </div>
     </div>
     <div
+      id="jira-html"
       class="break-words"
       v-html="replaceAttachments(data.renderedFields.description, data.renderedFields.attachment)"
     ></div>
@@ -81,8 +82,10 @@ function replaceAttachments(text: string, attachments: any[]) {
   padding: 20px;
   overflow-y: scroll;
 }
+</style>
 
-.side-panel p {
+<style>
+#jira-html p {
   margin-top: 1em;
 }
 </style>
