@@ -61,7 +61,9 @@ useHead({
   title: 'Standup',
 })
 
-const { data: sprint } = useSprintQuery(2)
+const route = useRoute()
+
+const { data: sprint } = useSprintQuery(route.query?.boardId || 2)
 
 const activeSprintId = computed(() => {
   return sprint.value?.values?.[0]?.id
