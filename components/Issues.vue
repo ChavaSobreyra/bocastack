@@ -1,9 +1,9 @@
 <template>
   <ul role="list" class="divide-y divide-gray-200">
     <li
-      v-for="issue of issues"
+      v-for="(issue, i) of issues"
       :key="issue.id"
-      class="grid select-none grid-flow-col py-2 px-4 hover:bg-gray-100"
+      class="grid select-none grid-flow-col px-4 py-2 hover:bg-gray-100"
       :class="{
         'bg-gray-100': props.selectedIssueId === issue.id,
         'bg-white-100': props.selectedIssueId !== issue.id,
@@ -11,8 +11,13 @@
       @click="emit('selected', issue.id)"
     >
       <p class="mt-1.5 text-xl text-gray-900">
-        <span v-if="issue.fields.flagged" class="mr-2">🛑</span>
-        <span v-if="issue.fields.status.name === 'UAT'" class="mr-2">👀</span>
+        <span v-if="filter === 'in-progress'" class="inline-block w-10 text-sm">
+          <span v-if="filter === 'in-progress' && daysInStatus(issue) > 0">
+            {{ daysInStatus(issue) }}D
+          </span>
+        </span>
+        <span v-if="issue.fields.flagged" class="ml-1 mr-2">🛑</span>
+        <span v-if="issue.fields.status.name === 'UAT'" class="ml-1 mr-2">👀</span>
         {{ issue.fields.summary }}
       </p>
       <div class="flex items-center justify-self-end">
@@ -32,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { orderBy } from 'lodash'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
 
@@ -50,6 +56,10 @@ const issues = ref([])
 const emit = defineEmits(['selected'])
 
 watch(data, setIssues, { immediate: true })
+
+function daysInStatus(issue) {
+  return $dayjs().diff($dayjs(issue.fields.statuscategorychangedate), 'day')
+}
 
 function setIssues() {
   const issuesByFilter = {
@@ -80,7 +90,7 @@ function inProgressIssues() {
     ['In Progress', 'UAT'].includes(issue.fields?.status?.name),
   )
 
-  return sortIssuesByAssignee(issues)
+  return orderBy(issues, i => daysInStatus(i), 'desc')
 }
 
 function notStartedIssues() {
