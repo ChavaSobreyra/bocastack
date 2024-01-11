@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-200 text-slate-800">
-    <div class="container mx-auto max-w-3xl">
+    <div class="container mx-auto max-w-3xl pb-16">
       <Nav />
       <section class="pt-8">
         <div class="mb-4 font-semibold">

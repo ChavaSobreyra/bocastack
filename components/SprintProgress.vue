@@ -8,26 +8,31 @@
         </div>
       </div>
 
-      <div class="flex justify-between">
-        <div>Completed</div>
-        <div class="ml-8 font-semibold uppercase">
-          <div v-if="progress.donePoints > progress.expectedDonePoints" class="text-green-600">
-            <span class="mr-2">🚀</span>
-            Ahead of Schedule
+      <div class="text-semibold flex justify-between text-sm font-medium uppercase">
+        <div class="mb-1">Done & In Progress</div>
+        <div class="ml-8 text-sm font-semibold uppercase">
+          <div v-if="progress.donePoints >= progress.expectedDonePoints" class="text-green-600">
+            <span class="mr-1">🚀</span>
+            On Track
           </div>
-          <div v-else-if="progress.percentProgress === progress.expectedProgress">On Track</div>
           <div v-else class="text-red-600">
             <span class="mr-1">😰</span>
             Running Behind
           </div>
         </div>
       </div>
-      <div v-if="progress.percentProgress" class="w-full bg-gray-200 dark:bg-gray-300">
+      <div v-if="progress.percentDone" class="w-full bg-gray-200 dark:bg-gray-300">
         <div
-          class="bg-indigo-600 py-1 px-4 text-right font-medium leading-none text-blue-100"
-          :style="`width: ${progress.percentProgress}%`"
+          class="inline-block bg-indigo-600 py-1 px-4 text-right font-medium leading-none text-blue-100"
+          :style="`width: ${progress.percentDone}%`"
         >
-          {{ progress.percentProgress }}%
+          &nbsp;
+        </div>
+        <div
+          class="inline-block bg-indigo-500 py-1 px-4 text-right font-medium leading-none text-blue-100"
+          :style="`width: ${progress.percentInProgress}%`"
+        >
+          {{ Number(progress.percentDone) + Number(progress.percentInProgress) }}%
         </div>
       </div>
       <div v-if="progress.expectedProgress" class="w-full bg-gray-200 dark:bg-gray-300">
@@ -38,7 +43,9 @@
           {{ progress.expectedProgress }}%
         </div>
       </div>
-      Expected
+      <span class="text-semibold mt-1 flex justify-between text-sm font-medium uppercase">
+        Expected
+      </span>
     </ClientOnly>
   </div>
 </template>
@@ -61,8 +68,14 @@ const progress = computed(() => {
     .filter(i => i.fields.customfield_10028)
     .map(i => Number(i.fields.customfield_10028))
     .reduce((partialSum, a) => partialSum + a, 0)
+
   const donePoints = issues
     .filter(i => i.fields.customfield_10028 && i.fields.resolutiondate)
+    .map(i => Number(i.fields.customfield_10028))
+    .reduce((partialSum, a) => partialSum + a, 0)
+
+  const inProgressPoints = issues
+    .filter(issue => ['In Progress', 'UAT'].includes(issue.fields?.status?.name))
     .map(i => Number(i.fields.customfield_10028))
     .reduce((partialSum, a) => partialSum + a, 0)
 
@@ -70,7 +83,8 @@ const progress = computed(() => {
   const endDate = $dayjs(issues[0].fields.sprint.endDate)
   const daysRemaining = endDate.businessTimeDiff($dayjs(), 'days')
   const sprintLength = endDate.businessTimeDiff(startDate, 'days')
-  const percentProgress = ((donePoints / totalPoints) * 100).toFixed(0)
+  const percentDone = ((donePoints / totalPoints) * 100).toFixed(0)
+  const percentInProgress = ((inProgressPoints / totalPoints) * 100).toFixed(0)
   const expectedDonePoints = (
     ((sprintLength - daysRemaining) / sprintLength) *
     totalPoints
@@ -84,8 +98,10 @@ const progress = computed(() => {
     totalPoints,
     donePoints,
     expectedDonePoints,
-    percentProgress,
+    percentDone,
+    percentInProgress,
     expectedProgress,
+    inProgressPoints,
   }
 })
 </script>
