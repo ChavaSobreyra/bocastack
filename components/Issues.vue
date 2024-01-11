@@ -22,7 +22,7 @@
           <span
             class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
           >
-            UAT
+            UATt
           </span>
         </span>
         {{ issue.fields.summary }}
