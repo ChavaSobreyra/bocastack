@@ -11,11 +11,10 @@
       <div class="flex justify-between">
         <div>Done & In Progress</div>
         <div class="ml-8 font-semibold uppercase">
-          <div v-if="progress.donePoints > progress.expectedDonePoints" class="text-green-600">
+          <div v-if="progress.donePoints >= progress.expectedDonePoints" class="text-green-600">
             <span class="mr-2">🚀</span>
             Ahead of Schedule
           </div>
-          <div v-else-if="progress.percentDone === progress.expectedProgress">On Track</div>
           <div v-else class="text-red-600">
             <span class="mr-1">😰</span>
             Running Behind

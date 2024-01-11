@@ -46,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import orderBy from 'lodash/orderBy'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
 
