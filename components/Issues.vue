@@ -56,6 +56,7 @@ const props = defineProps<{
   activeSprintId: number
   filter: 'recently-completed' | 'in-progress' | 'next-up'
   selectedIssueId: number | null
+  shake?: boolean
 }>()
 
 const { data } = useIssuesQuery(props.activeSprintId)
@@ -107,7 +108,7 @@ function notStartedIssues() {
 
   const issues = data.value.issues.filter(issue => ['To Do'].includes(issue.fields?.status?.name))
 
-  return sortIssuesByAssignee(issues).slice(0, 10)
+  return sortIssuesByAssignee(issues)
 }
 
 function sortIssuesByAssignee(issues) {
