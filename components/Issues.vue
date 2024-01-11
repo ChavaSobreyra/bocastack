@@ -46,7 +46,6 @@
 </template>
 
 <script setup lang="ts">
-import { orderBy } from 'lodash'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
 
@@ -56,7 +55,6 @@ const props = defineProps<{
   activeSprintId: number
   filter: 'recently-completed' | 'in-progress' | 'next-up'
   selectedIssueId: number | null
-  shake?: boolean
 }>()
 
 const { data } = useIssuesQuery(props.activeSprintId)
