@@ -8,12 +8,12 @@
         </div>
       </div>
 
-      <div class="flex justify-between">
-        <div>Done & In Progress</div>
-        <div class="ml-8 font-semibold uppercase">
+      <div class="text-semibold flex justify-between text-sm font-medium uppercase">
+        <div class="mb-1">Done & In Progress</div>
+        <div class="ml-8 text-sm font-semibold uppercase">
           <div v-if="progress.donePoints >= progress.expectedDonePoints" class="text-green-600">
-            <span class="mr-2">🚀</span>
-            Ahead of Schedule
+            <span class="mr-1">🚀</span>
+            On Track
           </div>
           <div v-else class="text-red-600">
             <span class="mr-1">😰</span>
@@ -43,7 +43,9 @@
           {{ progress.expectedProgress }}%
         </div>
       </div>
-      Expected
+      <span class="text-semibold mt-1 flex justify-between text-sm font-medium uppercase">
+        Expected
+      </span>
     </ClientOnly>
   </div>
 </template>
