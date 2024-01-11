@@ -136,30 +136,3 @@ function wasCompletedOnPreviousWorkDay(date) {
   return lastBusinessDay.isBefore(resolutionDate)
 }
 </script>
-
-<style>
-.shake {
-  animation: shaking 2s infinite;
-}
-
-@keyframes shaking {
-  0% {
-    transform: translateX(0);
-  }
-  5% {
-    transform: translateX(2px);
-  }
-  10% {
-    transform: translateX(-2px);
-  }
-  15% {
-    transform: translateX(2px);
-  }
-  20% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-</style>
