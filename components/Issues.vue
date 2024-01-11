@@ -3,31 +3,40 @@
     <li
       v-for="(issue, i) of issues"
       :key="issue.id"
-      class="grid select-none grid-flow-col px-4 py-2 hover:bg-gray-100"
+      class="grid select-none grid-flow-col py-3 px-4 hover:bg-gray-100"
       :class="{
         'bg-gray-100': props.selectedIssueId === issue.id,
         'bg-white-100': props.selectedIssueId !== issue.id,
       }"
       @click="emit('selected', issue.id)"
     >
-      <p class="mt-1.5 text-xl text-gray-900">
-        <span v-if="filter === 'in-progress'" class="inline-block w-10 text-sm">
-          <span v-if="filter === 'in-progress' && daysInStatus(issue) > 0">
-            {{ daysInStatus(issue) }}D
-          </span>
+      <p class="align-middle text-xl text-gray-900">
+        <span v-if="filter === 'in-progress'" class="mt-1.5 inline-block w-10">
+          <div class="w-4 text-center">
+            <div class="text-[9px] leading-none">DAY</div>
+            <div class="text-base leading-none">{{ daysInStatus(issue) + 1 }}</div>
+          </div>
         </span>
         <span v-if="issue.fields.flagged" class="ml-1 mr-2">🛑</span>
-        <span v-if="issue.fields.status.name === 'UAT'" class="ml-1 mr-2">👀</span>
+        <span v-if="issue.fields.status.name === 'UAT'" class="ml-1 mr-2">
+          <span
+            class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
+          >
+            UAT
+          </span>
+        </span>
         {{ issue.fields.summary }}
       </p>
       <div class="flex items-center justify-self-end">
-        <p class="rounded-full bg-gray-100 px-2.5 py-0.5 text-center font-semibold text-gray-800">
+        <p
+          class="rounded-full bg-gray-100 px-2.5 py-0.5 text-center text-sm font-semibold text-gray-800"
+        >
           {{ issue.fields.customfield_10028 ? issue.fields.customfield_10028 : '-' }}
         </p>
 
         <img
           v-if="issue.fields.assignee"
-          class="ml-5 h-10 w-10 rounded-full"
+          class="ml-5 h-8 w-8 rounded-full"
           :src="issue.fields.assignee.avatarUrls['48x48']"
           alt=""
         />
@@ -47,6 +56,7 @@ const props = defineProps<{
   activeSprintId: number
   filter: 'recently-completed' | 'in-progress' | 'next-up'
   selectedIssueId: number | null
+  shake?: boolean
 }>()
 
 const { data } = useIssuesQuery(props.activeSprintId)
@@ -126,3 +136,30 @@ function wasCompletedOnPreviousWorkDay(date) {
   return lastBusinessDay.isBefore(resolutionDate)
 }
 </script>
+
+<style>
+.shake {
+  animation: shaking 2s infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: translateX(0);
+  }
+  5% {
+    transform: translateX(2px);
+  }
+  10% {
+    transform: translateX(-2px);
+  }
+  15% {
+    transform: translateX(2px);
+  }
+  20% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>
