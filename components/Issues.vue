@@ -46,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import { groupBy } from 'lodash'
 import orderBy from 'lodash/orderBy'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
@@ -100,7 +101,13 @@ function inProgressIssues() {
     ['In Progress', 'UAT'].includes(issue.fields?.status?.name),
   )
 
-  return orderBy(issues, i => daysInStatus(i), 'desc')
+  const issuesGroupedByUser = groupBy(issues, 'fields.assignee.accountId')
+
+  return orderBy(
+    issuesGroupedByUser,
+    group => Math.max(...group.map(i => daysInStatus(i))),
+    'desc',
+  ).flat()
 }
 
 function notStartedIssues() {
