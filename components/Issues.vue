@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { groupBy } from 'lodash'
+import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
