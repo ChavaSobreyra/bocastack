@@ -1,17 +1,21 @@
 <template>
   <div class="bg-gray-50">
     <div>
-      <div class="blob absolute top-0 left-4 rounded-full bg-blue-300 opacity-70 blur-md" />
-
       <div
-        class="blob animation-delay-2 absolute top-80 -right-1 rounded-full bg-green-300 opacity-70 blur-md"
+        class="blob absolute top-0 left-4 rounded-full bg-gradient-to-r from-blue-300 via-teal-300 to-green-300 opacity-70 blur-md"
       />
 
       <div
-        class="blob animation-delay-4 absolute bottom-32 left-72 rounded-full bg-green-300 opacity-70 blur-md"
+        class="blob animation-delay-2 absolute top-80 -right-1 rounded-full bg-gradient-to-r from-green-300 via-teal-300 to-blue-300 opacity-70 blur-md"
       />
 
-      <div class="blob a absolute -bottom-4 right-36 rounded-full bg-blue-300 opacity-70 blur-md" />
+      <div
+        class="blob animation-delay-4 absolute bottom-32 left-72 rounded-full bg-gradient-to-r from-green-300 via-teal-300 to-blue-300 opacity-70 blur-md"
+      />
+
+      <div
+        class="blob a absolute -bottom-4 right-36 rounded-full bg-gradient-to-r from-blue-300 via-teal-300 to-green-300 opacity-70 blur-md"
+      />
 
       <div class="container mx-auto max-w-3xl pb-16">
         <Nav />
@@ -104,12 +108,15 @@ onMounted(() =>
 @keyframes moveBlob {
   0% {
     transform: translate(0px, 0px) scale(1);
+    background-position: 50% 50%;
   }
   50% {
-    transform: translate(30px, 40px) scale(2.5);
+    transform: translate(80px, 200px) scale(2.5);
+    background-position: 100% 0%;
   }
   100% {
     transform: translate(0px, 0px) scale(1);
+    background-position: 50% 50%;
   }
 }
 
@@ -118,7 +125,8 @@ onMounted(() =>
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  animation: moveBlob 10s infinite;
+  animation: moveBlob 20s infinite;
+  background-size: 600%;
 }
 
 .animation-delay-2 {
