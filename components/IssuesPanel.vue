@@ -1,30 +1,35 @@
 <template>
-  <div v-if="data.fields" class="side-panel bg-gray-100">
+  <div v-if="data.fields" class="side-panel text-gray-900">
     <div class="flex justify-end">
       <button @click="$emit('close-panel')">
         <XCircleIcon class="h-6 w-6 text-slate-500" />
       </button>
     </div>
 
-    <div class="mt-1.5 text-xl text-gray-900">
-      <span v-if="data.fields.flagged" class="mr-2">🛑</span>
-      <span v-if="data.fields.status.name === 'UAT'" class="mr-2">👀</span>
-      <span class="font-semibold text-gray-600">{{ data.fields.summary }}</span>
-    </div>
-    <div class="flex items-center justify-self-start border-b-2 border-gray-200 p-6">
+    <div class="pt-2">
       <img
         v-if="data.fields.assignee"
         class="h-10 w-10 rounded-full"
         :src="data.fields.assignee.avatarUrls['48x48']"
         alt=""
       />
-      <span class="pl-4 font-semibold text-gray-600">Points:</span>
-      <div class="rounded-full bg-gray-100 px-1 text-center font-semibold text-gray-800">
+    </div>
+
+    <div class="flex py-6">
+      <img :src="data.fields.issuetype.iconUrl" alt="" />
+      <span class="pl-2 font-semibold">{{ data.fields.summary }}</span>
+    </div>
+
+    <div class="flex items-center justify-self-start border-b-2 border-gray-200 pb-6">
+      <span class="pr-2 font-semibold">Points:</span>
+      <div
+        class="rounded-md bg-gray-100 px-2 py-0.5 text-center text-sm font-semibold text-gray-800"
+      >
         {{ data.fields.customfield_10028 ? data.fields.customfield_10028 : '-' }}
       </div>
-      <span class="pl-2 pr-2 font-semibold text-gray-600">Epic:</span>
+      <span class="pl-2 pr-2 font-semibold">Epic:</span>
       <div
-        class="rounded-full p-2 text-center text-sm font-semibold text-white"
+        class="rounded-md px-2 py-0.5 text-center text-sm font-semibold text-white"
         :class="{
           'bg-blue-500': data.fields.parent.fields.summary !== 'Bug',
           'bg-red-500': data.fields.parent.fields.summary === 'Bug',
@@ -33,11 +38,12 @@
         {{ data.fields.parent.fields.summary }}
       </div>
     </div>
+
     <div
       id="jira-html"
-      class="break-words"
+      class="break-words pt-4"
       v-html="replaceAttachments(data.renderedFields.description, data.renderedFields.attachment)"
-    ></div>
+    />
   </div>
 </template>
 
@@ -81,6 +87,7 @@ function replaceAttachments(text: string, attachments: any[]) {
   border-left: 1px solid #ccc;
   padding: 20px;
   overflow-y: scroll;
+  background-color: white;
 }
 </style>
 

@@ -1,35 +1,31 @@
 <template>
   <div>
     <ClientOnly>
-      <div class="mb-4 flex justify-between">
-        <div>
-          <span class="mr-2 text-3xl font-semibold">👷🏼‍♀️ 🏗</span>
-          <span class="text-2xl font-semibold">Work In Progress</span>
-        </div>
-      </div>
-
-      <div class="text-semibold flex justify-between text-sm font-medium uppercase">
-        <div class="mb-1">Done & In Progress</div>
-        <div class="ml-8 text-sm font-semibold uppercase">
-          <div v-if="progress.donePoints >= progress.expectedDonePoints" class="text-green-600">
-            <span class="mr-1">🚀</span>
-            On Track
+      <div class="text-bold flex items-center justify-between text-sm font-medium text-gray-500">
+        <div class="mb-1">Done & in progress</div>
+        <div class="ml-8 text-sm font-semibold">
+          <div
+            v-if="progress.donePoints >= progress.expectedDonePoints"
+            class="flex items-center text-emerald-600"
+          >
+            <span class="mr-1 text-2xl">🚀</span>
+            On track
           </div>
-          <div v-else class="text-red-600">
-            <span class="mr-1">😰</span>
-            Running Behind
+          <div v-else class="flex items-center text-red-600">
+            <span class="mr-1 text-2xl">😰</span>
+            Running behind
           </div>
         </div>
       </div>
       <div v-if="progress.percentDone" class="w-full bg-gray-200 dark:bg-gray-300">
         <div
-          class="inline-block bg-indigo-600 py-1 px-4 text-right font-medium leading-none text-blue-100"
+          class="inline-block bg-blue-600 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.percentDone}%`"
         >
           &nbsp;
         </div>
         <div
-          class="inline-block bg-indigo-500 py-1 px-4 text-right font-medium leading-none text-blue-100"
+          class="inline-block bg-blue-500 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.percentInProgress}%`"
         >
           {{ Number(progress.percentDone) + Number(progress.percentInProgress) }}%
@@ -37,13 +33,13 @@
       </div>
       <div v-if="progress.expectedProgress" class="w-full bg-gray-200 dark:bg-gray-300">
         <div
-          class="bg-blue-600 py-1 px-4 text-right font-medium leading-none text-blue-100"
+          class="bg-teal-300 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.expectedProgress}%`"
         >
           {{ progress.expectedProgress }}%
         </div>
       </div>
-      <span class="text-semibold mt-1 flex justify-between text-sm font-medium uppercase">
+      <span class="text-bold mt-1 flex justify-between text-sm font-medium text-gray-500">
         Expected
       </span>
     </ClientOnly>
