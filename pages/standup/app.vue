@@ -1,57 +1,75 @@
 <template>
-  <div class="min-h-screen bg-gray-200 text-slate-800">
-    <div class="container mx-auto max-w-3xl pb-16">
-      <Nav />
-      <section class="pt-8">
-        <div class="mb-4 font-semibold">
-          <span class="mr-2 text-3xl">🎉 🥳</span>
-          <span class="text-2xl">Recently Completed</span>
-        </div>
-        <div class="overflow-hidden rounded bg-white p-3">
-          <Issues
-            v-if="activeSprintId"
-            :active-sprint-id="activeSprintId"
-            filter="recently-completed"
-            :selected-issue-id="selectedIssueId"
-            @selected="selectIssue"
-          />
-        </div>
-      </section>
+  <div class="bg-gray-50">
+    <div>
+      <div class="blob absolute top-0 left-4 rounded-full bg-blue-300 opacity-70" />
 
-      <section class="pt-8">
-        <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-8" />
-        <div class="overflow-hidden rounded bg-white p-3 shadow">
-          <Issues
-            v-if="activeSprintId"
-            :active-sprint-id="activeSprintId"
-            filter="in-progress"
-            :selected-issue-id="selectedIssueId"
-            @selected="selectIssue"
-          />
-        </div>
-      </section>
-
-      <section class="pt-8">
-        <div class="mb-4 font-semibold">
-          <span class="mr-2 text-3xl">📝</span>
-          <span class="text-2xl">Not Started</span>
-        </div>
-        <div class="overflow-hidden rounded bg-white p-3 shadow">
-          <Issues
-            v-if="activeSprintId"
-            :active-sprint-id="activeSprintId"
-            filter="next-up"
-            :selected-issue-id="selectedIssueId"
-            @selected="selectIssue"
-          />
-        </div>
-      </section>
-      <EndStandupModal v-if="showModal" @close-modal="showModal = false" />
-      <IssuesPanel
-        v-if="selectedIssueId"
-        :selected-issue-id="selectedIssueId"
-        @close-panel="selectedIssueId = null"
+      <div
+        class="blob animation-delay-2 absolute -right-1 top-40 rounded-full bg-green-300 opacity-70"
       />
+
+      <div
+        class="blob animation-delay-4 absolute bottom-10 left-64 rounded-full bg-green-300 opacity-70"
+      />
+
+      <div class="blob a absolute -bottom-2 right-36 rounded-full bg-blue-300 opacity-70" />
+
+      <div class="container mx-auto max-w-3xl pb-16">
+        <Nav />
+        <section class="pt-8">
+          <div class="overflow-hidden rounded bg-white px-8 py-11">
+            <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
+              <span class="justify-self-start text-lg">Recently completed</span>
+              <span class="justify-self-end text-4xl">🎉 🥳</span>
+            </div>
+            <Issues
+              v-if="activeSprintId"
+              :active-sprint-id="activeSprintId"
+              filter="recently-completed"
+              :selected-issue-id="selectedIssueId"
+              @selected="selectIssue"
+            />
+          </div>
+        </section>
+
+        <section class="pt-8">
+          <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-8" />
+          <div class="overflow-hidden rounded bg-white px-8 py-11">
+            <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
+              <span class="justify-self-start text-lg">Work in progress</span>
+              <span class="justify-self-end text-4xl">🚧</span>
+            </div>
+            <Issues
+              v-if="activeSprintId"
+              :active-sprint-id="activeSprintId"
+              filter="in-progress"
+              :selected-issue-id="selectedIssueId"
+              @selected="selectIssue"
+            />
+          </div>
+        </section>
+
+        <section class="pt-8">
+          <div class="overflow-hidden rounded bg-white px-8 py-11">
+            <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
+              <span class="justify-self-start text-lg">Upcoming</span>
+              <span class="justify-self-end text-4xl">⏰</span>
+            </div>
+            <Issues
+              v-if="activeSprintId"
+              :active-sprint-id="activeSprintId"
+              filter="next-up"
+              :selected-issue-id="selectedIssueId"
+              @selected="selectIssue"
+            />
+          </div>
+        </section>
+        <EndStandupModal v-if="showModal" @close-modal="showModal = false" />
+        <IssuesPanel
+          v-if="selectedIssueId"
+          :selected-issue-id="selectedIssueId"
+          @close-panel="selectedIssueId = null"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -82,3 +100,31 @@ onMounted(() =>
   }),
 )
 </script>
+<style>
+@keyframes moveBlob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(30px, 50px) scale(2);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.blob {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  animation: moveBlob 10s infinite;
+}
+
+.animation-delay-2 {
+  animation-delay: 2s;
+}
+.animation-delay-4 {
+  animation-delay: 4s;
+}
+</style>
