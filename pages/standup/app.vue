@@ -1,17 +1,17 @@
 <template>
   <div class="bg-gray-50">
     <div>
-      <div class="blob absolute top-0 left-4 rounded-full bg-blue-300 opacity-70" />
+      <div class="blob absolute top-0 left-4 rounded-full bg-blue-300 opacity-70 blur-md" />
 
       <div
-        class="blob animation-delay-2 absolute -right-1 top-40 rounded-full bg-green-300 opacity-70"
+        class="blob animation-delay-2 absolute top-80 -right-1 rounded-full bg-green-300 opacity-70 blur-md"
       />
 
       <div
-        class="blob animation-delay-4 absolute bottom-10 left-64 rounded-full bg-green-300 opacity-70"
+        class="blob animation-delay-4 absolute bottom-32 left-72 rounded-full bg-green-300 opacity-70 blur-md"
       />
 
-      <div class="blob a absolute -bottom-2 right-36 rounded-full bg-blue-300 opacity-70" />
+      <div class="blob a absolute -bottom-4 right-36 rounded-full bg-blue-300 opacity-70 blur-md" />
 
       <div class="container mx-auto max-w-3xl pb-16">
         <Nav />
@@ -106,7 +106,7 @@ onMounted(() =>
     transform: translate(0px, 0px) scale(1);
   }
   50% {
-    transform: translate(30px, 50px) scale(2);
+    transform: translate(30px, 40px) scale(2.5);
   }
   100% {
     transform: translate(0px, 0px) scale(1);
@@ -115,8 +115,8 @@ onMounted(() =>
 
 .blob {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   animation: moveBlob 10s infinite;
 }
