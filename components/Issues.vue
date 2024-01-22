@@ -3,25 +3,21 @@
     <li
       v-for="issue of issues"
       :key="issue.id"
-      class="grid select-none grid-flow-col py-3 px-2 hover:rounded-md hover:bg-gray-100"
+      class="grid select-none grid-flow-col py-3 px-4 hover:bg-gray-100"
       :class="{
-        'rounded-md bg-gray-100': props.selectedIssueId === issue.id,
+        'bg-gray-100': props.selectedIssueId === issue.id,
         'bg-white-100': props.selectedIssueId !== issue.id,
       }"
       @click="emit('selected', issue.id)"
     >
-      <p class="flex items-center text-gray-900">
-        <span v-if="filter === 'in-progress'" class="inline-block w-10">
+      <p class="align-middle text-xl text-gray-900">
+        <span v-if="filter === 'in-progress'" class="mt-1.5 inline-block w-10">
           <div class="w-4 text-center">
             <div class="text-[9px] leading-none">DAY</div>
-            <div class="text-base leading-none">{{ daysInStatus(issue) + 1 }}</div>
+            <div class="text-base leading-none">{{ daysInStatus(issue) }}</div>
           </div>
         </span>
-
-        <img class="text-xs" :src="issue.fields.issuetype.iconUrl" alt="" />
-        <span class="pl-2">{{ issue.fields.summary }}</span>
-
-        <span v-if="issue.fields.flagged" class="ml-1 mr-2">🚩</span>
+        <span v-if="issue.fields.flagged" class="ml-1 mr-2">🛑</span>
         <span v-if="issue.fields.status.name === 'UAT'" class="ml-1 mr-2">
           <span
             class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
@@ -29,10 +25,11 @@
             UAT
           </span>
         </span>
+        {{ issue.fields.summary }}
       </p>
       <div class="flex items-center justify-self-end">
         <p
-          class="rounded-md bg-gray-100 px-2 py-0.5 text-center text-sm font-semibold text-gray-800"
+          class="rounded-full bg-gray-100 px-2.5 py-0.5 text-center text-sm font-semibold text-gray-800"
         >
           {{ issue.fields.customfield_10028 ? issue.fields.customfield_10028 : '-' }}
         </p>
@@ -71,7 +68,7 @@ const emit = defineEmits(['selected'])
 watch(data, setIssues, { immediate: true })
 
 function daysInStatus(issue) {
-  return $dayjs().businessDiff($dayjs(issue.fields.statuscategorychangedate), 'day')
+  return Math.abs($dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate)))
 }
 
 function setIssues() {
@@ -146,3 +143,30 @@ function wasCompletedOnPreviousWorkDay(date) {
   return lastBusinessDay.isBefore(resolutionDate)
 }
 </script>
+
+<style>
+.shake {
+  animation: shaking 2s infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: translateX(0);
+  }
+  5% {
+    transform: translateX(2px);
+  }
+  10% {
+    transform: translateX(-2px);
+  }
+  15% {
+    transform: translateX(2px);
+  }
+  20% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>
