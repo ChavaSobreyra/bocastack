@@ -71,7 +71,7 @@ const emit = defineEmits(['selected'])
 watch(data, setIssues, { immediate: true })
 
 function daysInStatus(issue) {
-  return Math.abs($dayjs().businessDiffDays($dayjs(issue.fields.statuscategorychangedate))) + 1
+  return Math.abs($dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))) + 1
 }
 
 function setIssues() {
