@@ -14,7 +14,7 @@
         <span v-if="filter === 'in-progress'" class="inline-block w-10">
           <div class="w-4 text-center">
             <div class="text-[9px] leading-none">DAY</div>
-            <div class="text-base leading-none">{{ daysInStatus(issue) + 1 }}</div>
+            <div class="text-base leading-none">{{ daysInStatus(issue) }}</div>
           </div>
         </span>
 
@@ -71,7 +71,7 @@ const emit = defineEmits(['selected'])
 watch(data, setIssues, { immediate: true })
 
 function daysInStatus(issue) {
-  return $dayjs().diff($dayjs(issue.fields.statuscategorychangedate), 'day')
+  return Math.abs($dayjs().businessDiffDays($dayjs(issue.fields.statuscategorychangedate))) + 1
 }
 
 function setIssues() {
