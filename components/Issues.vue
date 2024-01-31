@@ -22,7 +22,7 @@
         <span class="pl-2">{{ issue.fields.summary }}</span>
 
         <span v-if="issue.fields.flagged" class="ml-1 mr-2">🚩</span>
-        <span v-if="issue.fields.status.name === 'UAT'" class="ml-1 mr-2">
+        <span v-if="['UAT', 'UX Review'].includes(issue.fields.status.name)" class="ml-1 mr-2">
           <span
             class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
           >
@@ -101,7 +101,7 @@ function inProgressIssues() {
   if (!data.value) return
 
   const issues = data.value.issues.filter(issue =>
-    ['In Progress', 'UAT'].includes(issue.fields?.status?.name),
+    ['In Progress', 'UAT', 'UX Review'].includes(issue.fields?.status?.name),
   )
 
   const issuesGroupedByUser = groupBy(issues, 'fields.assignee.accountId')
