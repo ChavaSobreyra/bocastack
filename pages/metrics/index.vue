@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import _, { values } from 'lodash'
+import _ from 'lodash'
 
 import { teams } from '~/config/teams.config'
 import { users } from '~/config/users.config'
