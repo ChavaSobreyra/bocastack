@@ -1,15 +1,42 @@
-export function useIssueQuery(projectId: Ref<string>, userId: Ref<string>) {
-  console.log('useIssueQuery', {
-    projectId,
-    userId,
-  })
-  let query = `project = ${projectId.value} AND status = Done AND resolution = Done`
+import { teams } from '~/config/teams.config'
 
-  if (userId.value) query += ` AND assignee in (${userId.value})`
+async function getIssues() {
+  // TODO: get more issues by getting multiple pages in this fn
+  let query = `resolved >= -12w AND status = Done AND resolution = Done AND project IN (${teams.map(t => t.id).join(',')})`
+
+  // if (projectId.value) query += ` AND project = ${projectId.value}`
+  // else query += ` AND project IN (${teams.map(t => t.id).join(',')})`
+
+
+  // if (userId.value) query += ` AND assignee = ${userId.value}`
+
   query += ' order by resolutiondate DESC'
-  return useFetch(
-    `/api/jira/rest/api/3/search?jql=${encodeURIComponent(
-      query,
-    )}&maxResults=100&expand=changelog&fields=statuscategorychangedate,customfield_10028`,
+
+  const url = `/api/jira/rest/api/3/search?jql=${encodeURIComponent(
+    query,
+  )}&maxResults=100&expand=changelog&fields=statuscategorychangedate,customfield_10028,project,assignee`
+
+  const issues = []
+  const result = await $fetch(
+    url
   )
+
+  issues.push(...result.issues)
+
+while(issues.length < result.total){
+  const result = await $fetch(
+    `${url}&startAt=${issues.length}`
+  )
+  issues.push(...result.issues)
+}
+
+
+  return result
+}
+
+export function useIssueQuery() {
+  return useQuery({
+    queryKey: ['issues'],
+    queryFn: () => getIssues(),
+  })
 }

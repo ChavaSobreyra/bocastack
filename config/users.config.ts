@@ -70,7 +70,7 @@ export const users = [
       '32x32':
         'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:0d9c516c-2896-4859-9394-9e60d9e0050c/d0bdcb41-38b9-4970-9c15-f76ad955fd57/32',
     },
-    displayName: 'jleaptrott',
+    displayName: 'Joey Leaptrott',
     active: true,
     locale: 'en_US',
   },
@@ -144,7 +144,7 @@ export const users = [
       '32x32':
         'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/61f8361a0d3777006a90515f/398ba6e9-c39f-4b51-9e09-bdf06579e44a/32',
     },
-    displayName: 'jarue johnson',
+    displayName: 'Jarue Johnson',
     active: true,
     locale: 'en_US',
   },
@@ -167,22 +167,26 @@ export const users = [
     locale: 'en_US',
   },
   {
-    self: 'https://torticity.atlassian.net/rest/api/3/user?accountId=712020:c58b4ba3-f8b3-4ab0-9fe1-88364c411bba',
-    accountId: '712020:c58b4ba3-f8b3-4ab0-9fe1-88364c411bba',
+    self: 'https://torticity.atlassian.net/rest/api/3/user?accountId=712020:21e369f6-4cb3-4740-9d34-550c06ee844e',
+    accountId: '712020:21e369f6-4cb3-4740-9d34-550c06ee844e',
     accountType: 'atlassian',
     avatarUrls: {
       '48x48':
-        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AC-6.png',
+        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:21e369f6-4cb3-4740-9d34-550c06ee844e/fafcd5db-4e15-46c7-8855-68ddc9918be8/48',
       '24x24':
-        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AC-6.png',
+        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:21e369f6-4cb3-4740-9d34-550c06ee844e/fafcd5db-4e15-46c7-8855-68ddc9918be8/24',
       '16x16':
-        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AC-6.png',
+        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:21e369f6-4cb3-4740-9d34-550c06ee844e/fafcd5db-4e15-46c7-8855-68ddc9918be8/16',
       '32x32':
-        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AC-6.png',
+        'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:21e369f6-4cb3-4740-9d34-550c06ee844e/fafcd5db-4e15-46c7-8855-68ddc9918be8/32',
     },
     displayName: 'Alison Cassis',
     active: true,
+    timeZone: 'America/New_York',
     locale: 'en_US',
+    groups: { size: 2, items: [] },
+    applicationRoles: { size: 1, items: [] },
+    expand: 'groups,applicationRoles',
   },
   {
     self: 'https://torticity.atlassian.net/rest/api/3/user?accountId=64079361f00d095406f508ad',

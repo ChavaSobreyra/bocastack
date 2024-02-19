@@ -13,10 +13,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@heroicons/vue": "^2.0.16",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/google-fonts": "^3.0.0",
     "@nuxtjs/tailwindcss": "^6.6.4",
+    "@tanstack/vue-query": "^5.20.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/lodash": "^4.14.191",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
@@ -38,7 +40,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-extended": "^3.2.4",
     "lodash": "^4.17.21",
-    "nuxt": "^3.3.2",
+    "nuxt": "^3.10.2",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "ts-jest": "^29.0.5",
     "vitest": "^0.29.7"
