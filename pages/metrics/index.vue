@@ -1,5 +1,11 @@
 <template>
   <div>
+    <VelocityChart
+      :key="`${selectedTeam}-${selectedUser}`"
+      v-if="chartVelocityData"
+      :labels="chartVelocityData.labels"
+      :data="chartVelocityData.data"
+    />
     <select v-model="selectedTeam">
       <option :value="null">Please select one</option>
       <option v-for="team of teams" :key="team.id" :value="team.id">{{ team.name }}</option>
@@ -34,13 +40,20 @@
       <span class="sr-only">Loading...</span>
     </div>
     <template v-if="!isLoading">
+      <template v-for="user in users" v-if="filteredIssues">
+        {{ user.displayName }}
+        getTotalPoints: {{ getTotalPoints(getUserIssues(user.accountId)) }}
+        <br />
+        getPointsPerWeek: {{ getPointsPerWeek(getUserIssues(user.accountId)) }}
+        <br />
+      </template>
       <hr />
       <pre>{{ { meanDurationByPoints } }}</pre>
-      Points Per Sprint (6 week avg): {{ pointsPerWeek }}
+      Points Per Week (12 week avg): {{ pointsPerWeek }}
       <br />
       Total Done Points: {{ sumPoints }} points
       <br />
-      Mean Story Size {{ meanPoints }} points
+      Mean Story Size {{ meanSize }} points
       <br />
       Mean Duration: {{ meanDuration }} days
 
@@ -67,29 +80,42 @@ const selectedTeam = ref(null)
 
 const { data, isLoading } = useIssueQuery()
 
-
-const filteredIssues = computed(()=> {
-  if(!data.value?.issues?.length) return []
+const filteredIssues = computed(() => {
+  if (!data.value?.length) return []
 
   let issues = []
 
-  issues.push(...data.value.issues)
+  issues.push(...data.value)
 
-  if(selectedUser.value) {
+  if (selectedUser.value)
     issues = issues.filter(i => i.fields.assignee?.accountId === selectedUser.value)
-  }
 
-  if(selectedTeam.value) {
-    issues = issues.filter(i => i.fields.project?.key === selectedTeam.value)
-  }
+  if (selectedTeam.value) issues = issues.filter(i => i.fields.project?.key === selectedTeam.value)
 
   return issues
 })
 
+const chartVelocityData = computed(() => {
+  if (!filteredIssues.value?.length) return
+
+  const labels = []
+  const data = []
+
+  for (let i = 0; i < 12; i++) {
+    const week = $dayjs().subtract(i, 'week')
+    const weekIssues = filteredIssues.value.filter(i =>
+      $dayjs(i.fields.statuscategorychangedate).isBetween(week.startOf('week'), week.endOf('week')),
+    )
+    labels.push(`${week.startOf('week').format('MMM D')} - ${week.endOf('week').format('MMM D')}`)
+    data.push(weekIssues.reduce((acc, i) => acc + Number(i.fields.customfield_10028), 0))
+  }
+
+  return { labels, data }
+})
 
 const storyPointsArray = computed(() => {
-  if (!data.value?.issues?.length) return []
-  return data.value?.issues
+  if (!filteredIssues.value?.length) return []
+  return filteredIssues.value
     .filter(i => Number(i.fields.customfield_10028))
     .map(i => Number(i.fields.customfield_10028))
 })
@@ -99,22 +125,18 @@ const sumPoints = computed(() => {
   return _.sum(storyPointsArray.value)
 })
 
-const meanPoints = computed(() => {
-  if (!storyPointsArray.value) return
-  return _.mean(storyPointsArray.value).toFixed(2)
+const meanSize = computed(() => {
+  return getMeanSize(filteredIssues.value)
 })
 
 const durations = computed(() => {
-  if (!data.value?.issues?.length) return []
-  return data.value.issues.map(i => ({
-    duration: getDuration(i),
-    points: i.fields.customfield_10028,
-  }))
+  if (!filteredIssues.value?.length) return []
+  return getDurations(filteredIssues.value)
 })
 
 const meanDuration = computed(() => {
-  if (!durations.value) return
-  return _.mean(durations.value.map(d => Number(d.duration))).toFixed(2)
+  if (!filteredIssues.value) return
+  return getMeanDuration(filteredIssues.value)
 })
 
 const meanDurationByPoints = computed(() => {
@@ -128,14 +150,45 @@ const meanDurationByPoints = computed(() => {
 })
 
 const pointsPerWeek = computed(() => {
-  if (!data.value?.issues?.length) return
+  if (!filteredIssues.value?.length) return
+  return getPointsPerWeek(filteredIssues.value)
+})
+
+function getMeanDuration(issues) {
+  const durations = getDurations(issues)
+  return _.mean(durations.map(d => Number(d.duration))).toFixed(2)
+}
+
+function getTotalPoints(issues) {
+  const points = getPointsArray(issues)
+  return _.sum(points)
+}
+
+function getPointsArray(issues) {
+  return issues
+    .filter(i => Number(i.fields.customfield_10028))
+    .map(i => Number(i.fields.customfield_10028))
+}
+
+function getMeanSize(issues) {
+  if (!issues) return
+  const points = getPointsArray(issues)
+  return _.mean(points).toFixed(2)
+}
+
+function getDurations(issues) {
+  return issues.map(i => ({
+    duration: getDuration(i),
+    points: i.fields.customfield_10028,
+  }))
+}
+
+function getPointsPerWeek(issues) {
   return _.divide(
-    _(data.value.issues)
-      .map(getDuration)
-      .sum(),
+    getTotalPoints(issues),
     12, // this is defined in the use issue query jql filter
   )
-})
+}
 
 function getDuration(issue) {
   const endDate = issue.fields.statuscategorychangedate
@@ -154,5 +207,9 @@ function getDuration(issue) {
 
 function getDaysSince(issue) {
   return $dayjs().diff($dayjs(issue.fields.statuscategorychangedate), 'day')
+}
+
+function getUserIssues(accountId) {
+  return filteredIssues.value.filter(i => i.fields.assignee?.accountId === accountId)
 }
 </script>

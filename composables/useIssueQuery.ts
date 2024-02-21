@@ -17,21 +17,20 @@ async function getIssues() {
   )}&maxResults=100&expand=changelog&fields=statuscategorychangedate,customfield_10028,project,assignee`
 
   const issues = []
-  const result = await $fetch(
+  const res = await $fetch(
     url
   )
 
-  issues.push(...result.issues)
+  issues.push(...res.issues)
 
-while(issues.length < result.total){
-  const result = await $fetch(
-    `${url}&startAt=${issues.length}`
-  )
-  issues.push(...result.issues)
-}
+  while(issues.length < res.total){
+    const result = await $fetch(
+      `${url}&startAt=${issues.length}`
+    )
+    issues.push(...result.issues)
+  }
 
-
-  return result
+  return issues
 }
 
 export function useIssueQuery() {

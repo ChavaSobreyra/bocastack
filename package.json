@@ -25,6 +25,7 @@
     "@vue/test-utils": "^2.3.2",
     "@vue/vue3-jest": "^29.2.3",
     "babel-jest": "^29.5.0",
+    "chart.js": "^4.4.1",
     "dayjs": "^1.11.7",
     "dayjs-business-time": "^1.0.4",
     "eslint": "^8.36.0",
@@ -43,6 +44,7 @@
     "nuxt": "^3.10.2",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "ts-jest": "^29.0.5",
-    "vitest": "^0.29.7"
+    "vitest": "^0.29.7",
+    "vue-chartjs": "^5.3.0"
   }
 }
