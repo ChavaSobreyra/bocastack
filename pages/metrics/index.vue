@@ -39,12 +39,11 @@
       </svg>
       <span class="sr-only">Loading...</span>
     </div>
+    <br />
     <template v-if="!isLoading">
-      <template v-for="user in users" v-if="filteredIssues">
-        {{ user.displayName }}
-        getTotalPoints: {{ getTotalPoints(getUserIssues(user.accountId)) }}
-        <br />
-        getPointsPerWeek: {{ getPointsPerWeek(getUserIssues(user.accountId)) }}
+      <template v-for="user in userTable" v-if="filteredIssues">
+        {{ user.name }} total: {{ user.total }} per week: {{ user.perWeek }}
+
         <br />
       </template>
       <hr />
@@ -212,4 +211,14 @@ function getDaysSince(issue) {
 function getUserIssues(accountId) {
   return filteredIssues.value.filter(i => i.fields.assignee?.accountId === accountId)
 }
+
+const userTable = computed(() => {
+  if (!filteredIssues.value?.length) return []
+
+  return users.map(u => ({
+    name: u.displayName,
+    total: getTotalPoints(getUserIssues(u.accountId)),
+    perWeek: getPointsPerWeek(getUserIssues(u.accountId)),
+  }))
+})
 </script>
