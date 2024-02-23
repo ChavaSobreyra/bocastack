@@ -41,32 +41,24 @@
     </div>
     <br />
     <template v-if="!isLoading">
-      <template v-for="team in teamTable" v-if="filteredIssues">
-        {{ team.name }} total: {{ team.total }} per week: {{ team.perWeek }}
-        <br />
-      </template>
+      <TabMenu :model="tabItems" v-model:activeIndex="active" />
+      <DataTable :value="teamTable" v-if="active === 0">
+        <Column field="name" header="Name" sortable style="width: 33%"></Column>
+        <Column field="total" header="TP" sortable style="width: 33%"></Column>
+        <Column field="perWeek" header="PPS" sortable style="width: 33%"></Column>
+      </DataTable>
 
-      <template v-for="user in userTable" v-if="filteredIssues">
-        {{ user.name }} total: {{ user.total }} per week: {{ user.perWeek }}
+      <DataTable :value="userTable" v-if="active === 1">
+        <Column field="name" header="Name" sortable style="width: 33%"></Column>
+        <Column field="total" header="TP" sortable style="width: 33%"></Column>
+        <Column field="perWeek" header="PPS" sortable style="width: 33%"></Column>
+      </DataTable>
 
-        <br />
-      </template>
-      <hr />
-      <pre>{{ { meanDurationByPoints } }}</pre>
-      Points Per Week (12 week avg): {{ pointsPerWeek }}
-      <br />
-      Total Done Points: {{ sumPoints }} points
-      <br />
-      Mean Story Size {{ meanSize }} points
-      <br />
-      Mean Duration: {{ meanDuration }} days
-
-      <hr />
-      <div v-for="issue of filteredIssues" :key="issue.id">
+      <!-- <div v-for="issue of filteredIssues" :key="issue.id">
         {{ issue.key }} points: {{ issue.fields.customfield_10028 }} duration:
         {{ getDuration(issue) }} days - days since done
         {{ getDaysSince(issue) }}
-      </div>
+      </div> -->
     </template>
   </div>
 </template>
@@ -81,6 +73,10 @@ const { $dayjs } = useNuxtApp()
 
 const selectedUser = ref(null)
 const selectedTeam = ref(null)
+
+useHead({
+  title: 'Metrics',
+})
 
 const { data, isLoading } = useIssueQuery()
 
@@ -214,30 +210,37 @@ function getDaysSince(issue) {
 }
 
 function getUserIssues(accountId) {
-  return filteredIssues.value.filter(i => i.fields.assignee?.accountId === accountId)
+  return data.value.filter(i => i.fields.assignee?.accountId === accountId)
 }
 
 function getTeamIssues(id) {
-  return filteredIssues.value.filter(i => i.fields.project?.key === id)
+  return data.value.filter(i => i.fields.project?.key === id)
 }
 
 const userTable = computed(() => {
-  if (!filteredIssues.value?.length) return []
+  if (!data.value?.length) return []
 
   return users.map(u => ({
     name: u.displayName,
     total: getTotalPoints(getUserIssues(u.accountId)),
-    perWeek: getPointsPerWeek(getUserIssues(u.accountId)),
+    perWeek: getPointsPerWeek(getUserIssues(u.accountId)).toFixed(2),
   }))
 })
 
 const teamTable = computed(() => {
-  if (!filteredIssues.value?.length) return []
+  if (!data.value?.length) return []
 
   return teams.map(t => ({
     name: t.name,
     total: getTotalPoints(getTeamIssues(t.id)),
-    perWeek: getPointsPerWeek(getTeamIssues(t.id)),
+    perWeek: getPointsPerWeek(getTeamIssues(t.id)).toFixed(2),
   }))
 })
+
+const tabItems = ref([
+  { label: 'By Team', icon: 'pi pi-users' },
+  { label: 'By Engineer', icon: 'pi pi-user' },
+])
+
+const active = ref(0)
 </script>
