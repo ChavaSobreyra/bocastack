@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@hebilicious/vue-query-nuxt',
+    'nuxt-primevue',
   ],
 
   http: {
