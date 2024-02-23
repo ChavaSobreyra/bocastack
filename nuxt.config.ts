@@ -1,3 +1,4 @@
+import path from 'path'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   runtimeConfig: {
@@ -20,6 +21,10 @@ export default defineNuxtConfig({
     credentials: 'same-origin',
   },
 
+  primevue: {
+    options: { unstyled: true },
+    importPT: { as: 'Metrics', from: path.resolve(__dirname, './presets/metrics/') },
+  },
   tailwindcss: {
     config: {
       content: ['presets/**/*.{js,vue,ts}'],
@@ -53,9 +58,8 @@ export default defineNuxtConfig({
         },
       },
     },
-    exposeConfig: true,
-    viewer: true,
   },
+  css: ['primevue/resources/themes/aura-light-green/theme.css'],
 
   googleFonts: {
     families: {
@@ -63,6 +67,4 @@ export default defineNuxtConfig({
     },
     overwriting: true,
   },
-
-  css: ['primevue/resources/themes/aura-light-green/theme.css'],
 })

@@ -230,6 +230,7 @@ const userTable = computed(() => {
     perWeek: getPointsPerWeek(getUserIssues(u.accountId)).toFixed(2),
     issuesTotal: getUserIssues(u.accountId).length,
     issuesPerWeek: _.divide(getUserIssues(u.accountId).length, 12).toFixed(2),
+    avatarUrls: u.avatarUrls,
   }))
 })
 
