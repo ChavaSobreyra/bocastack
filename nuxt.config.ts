@@ -23,8 +23,9 @@ export default defineNuxtConfig({
 
   primevue: {
     options: { unstyled: true },
-    importPT: { as: 'Metrics', from: path.resolve(__dirname, './presets/metrics/') },
+    importPT: { as: 'Lara', from: path.resolve(__dirname, './presets/lara/') },
   },
+
   tailwindcss: {
     config: {
       content: ['presets/**/*.{js,vue,ts}'],
@@ -59,7 +60,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ['primevue/resources/themes/aura-light-green/theme.css'],
 
   googleFonts: {
     families: {
@@ -67,4 +67,6 @@ export default defineNuxtConfig({
     },
     overwriting: true,
   },
+
+  css: ['~/assets/css/base.css'],
 })

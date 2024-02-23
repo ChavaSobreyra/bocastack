@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-black">
     <VelocityChart
       :key="`${selectedTeam}-${selectedUser}`"
       v-if="chartVelocityData"
