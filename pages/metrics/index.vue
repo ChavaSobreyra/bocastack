@@ -43,15 +43,19 @@
     <template v-if="!isLoading">
       <TabMenu :model="tabItems" v-model:activeIndex="active" />
       <DataTable :value="teamTable" v-if="active === 0">
-        <Column field="name" header="Name" sortable style="width: 33%"></Column>
-        <Column field="total" header="TP" sortable style="width: 33%"></Column>
-        <Column field="perWeek" header="PPS" sortable style="width: 33%"></Column>
+        <Column field="name" header="Name" sortable style="width: 20%"></Column>
+        <Column field="total" header="P" sortable style="width: 20%"></Column>
+        <Column field="perWeek" header="P/W" sortable style="width: 20%"></Column>
+        <Column field="issuesTotal" header="I" sortable style="width: 20%"></Column>
+        <Column field="issuesPerWeek" header="I/W" sortable style="width: 20%"></Column>
       </DataTable>
 
       <DataTable :value="userTable" v-if="active === 1">
-        <Column field="name" header="Name" sortable style="width: 33%"></Column>
-        <Column field="total" header="TP" sortable style="width: 33%"></Column>
-        <Column field="perWeek" header="PPS" sortable style="width: 33%"></Column>
+        <Column field="name" header="Name" sortable style="width: 20%"></Column>
+        <Column field="total" header="P" sortable style="width: 20%"></Column>
+        <Column field="perWeek" header="P/W" sortable style="width: 20%"></Column>
+        <Column field="issuesTotal" header="I" sortable style="width: 20%"></Column>
+        <Column field="issuesPerWeek" header="I/W" sortable style="width: 20%"></Column>
       </DataTable>
 
       <!-- <div v-for="issue of filteredIssues" :key="issue.id">
@@ -224,6 +228,8 @@ const userTable = computed(() => {
     name: u.displayName,
     total: getTotalPoints(getUserIssues(u.accountId)),
     perWeek: getPointsPerWeek(getUserIssues(u.accountId)).toFixed(2),
+    issuesTotal: getUserIssues(u.accountId).length,
+    issuesPerWeek: _.divide(getUserIssues(u.accountId).length, 12).toFixed(2),
   }))
 })
 
@@ -234,6 +240,8 @@ const teamTable = computed(() => {
     name: t.name,
     total: getTotalPoints(getTeamIssues(t.id)),
     perWeek: getPointsPerWeek(getTeamIssues(t.id)).toFixed(2),
+    issuesTotal: getTeamIssues(t.id).length,
+    issuesPerWeek: _.divide(getTeamIssues(t.id).length, 12).toFixed(2),
   }))
 })
 
