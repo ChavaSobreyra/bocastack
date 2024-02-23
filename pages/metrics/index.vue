@@ -41,6 +41,11 @@
     </div>
     <br />
     <template v-if="!isLoading">
+      <template v-for="team in teamTable" v-if="filteredIssues">
+        {{ team.name }} total: {{ team.total }} per week: {{ team.perWeek }}
+        <br />
+      </template>
+
       <template v-for="user in userTable" v-if="filteredIssues">
         {{ user.name }} total: {{ user.total }} per week: {{ user.perWeek }}
 
@@ -212,6 +217,10 @@ function getUserIssues(accountId) {
   return filteredIssues.value.filter(i => i.fields.assignee?.accountId === accountId)
 }
 
+function getTeamIssues(id) {
+  return filteredIssues.value.filter(i => i.fields.project?.key === id)
+}
+
 const userTable = computed(() => {
   if (!filteredIssues.value?.length) return []
 
@@ -219,6 +228,16 @@ const userTable = computed(() => {
     name: u.displayName,
     total: getTotalPoints(getUserIssues(u.accountId)),
     perWeek: getPointsPerWeek(getUserIssues(u.accountId)),
+  }))
+})
+
+const teamTable = computed(() => {
+  if (!filteredIssues.value?.length) return []
+
+  return teams.map(t => ({
+    name: t.name,
+    total: getTotalPoints(getTeamIssues(t.id)),
+    perWeek: getPointsPerWeek(getTeamIssues(t.id)),
   }))
 })
 </script>
