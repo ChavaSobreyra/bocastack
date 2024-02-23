@@ -17,7 +17,5 @@
     <p class="text-xl text-slate-600">
       Improve your software engineering output with modern productivity tools.
     </p>
-
-    <BocaStackFooter />
   </div>
 </template>
