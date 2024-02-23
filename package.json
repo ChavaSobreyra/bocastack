@@ -39,7 +39,9 @@
     "jest-extended": "^3.2.4",
     "lodash": "^4.17.21",
     "nuxt": "^3.3.2",
+    "nuxt-primevue": "^0.3.0",
     "prettier-plugin-tailwindcss": "^0.2.5",
+    "primevue": "^3.48.1",
     "ts-jest": "^29.0.5",
     "vitest": "^0.29.7"
   }

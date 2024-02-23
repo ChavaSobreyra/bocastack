@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-primevue',
   ],
 
   http: {
