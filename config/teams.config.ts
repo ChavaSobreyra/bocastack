@@ -1,10 +1,10 @@
 export const teams = [
   {
-    name: 'Lemurs',
+    name: 'Jaguars',
     id: 'DOCKIT',
   },
   {
-    name: 'Possums',
+    name: 'Piranhas',
     id: 'CP',
   },
   {
