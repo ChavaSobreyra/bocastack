@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-black">
+  <div class="">
     <VelocityChart
-      :key="`${selectedTeam}-${selectedUser}`"
       v-if="chartVelocityData"
+      :key="`${selectedTeam}-${selectedUser}`"
       :labels="chartVelocityData.labels"
       :data="chartVelocityData.data"
     />
@@ -41,28 +41,33 @@
     </div>
     <br />
     <template v-if="!isLoading">
-      <TabMenu :model="tabItems" v-model:activeIndex="active" />
-      <DataTable :value="teamTable" v-if="active === 0">
-        <Column field="name" header="Name" sortable style="width: 20%"></Column>
-        <Column field="total" header="P" sortable style="width: 20%"></Column>
-        <Column field="perWeek" header="P/W" sortable style="width: 20%"></Column>
-        <Column field="issuesTotal" header="I" sortable style="width: 20%"></Column>
-        <Column field="issuesPerWeek" header="I/W" sortable style="width: 20%"></Column>
+      <TabMenu v-model:activeIndex="active" :model="tabItems" />
+      <DataTable v-if="active === 0" :value="teamTable">
+        <Column field="name" header="Name" sortable style="width: 12.5%"></Column>
+        <Column field="total" header="P" sortable style="width: 12.5%"></Column>
+        <Column field="perWeek" header="P/W" sortable style="width: 12.5%"></Column>
+        <Column field="issuesTotal" header="I" sortable style="width: 12.5%"></Column>
+        <Column field="issuesPerWeek" header="I/W" sortable style="width: 12.5%"></Column>
+        <Column field="issuesTotal" header="I" sortable style="width: 12.5%"></Column>
+        <Column field="prodBreakageRate" header="B/I" sortable style="width: 12.5%"></Column>
+        <Column field="processDeviationRate" header="D/I" sortable style="width: 12.5%"></Column>
       </DataTable>
 
-      <DataTable :value="userTable" v-if="active === 1">
-        <Column field="name" header="Name" sortable style="width: 20%"></Column>
-        <Column field="total" header="P" sortable style="width: 20%"></Column>
-        <Column field="perWeek" header="P/W" sortable style="width: 20%"></Column>
-        <Column field="issuesTotal" header="I" sortable style="width: 20%"></Column>
-        <Column field="issuesPerWeek" header="I/W" sortable style="width: 20%"></Column>
+      <DataTable v-if="active === 1" :value="userTable">
+        <Column field="name" header="Name" sortable style="width: 16.66%"></Column>
+        <Column field="total" header="P" sortable style="width: 16.66%"></Column>
+        <Column field="perWeek" header="P/W" sortable style="width: 16.66%"></Column>
+        <Column field="issuesTotal" header="I" sortable style="width: 16.66%"></Column>
+        <Column field="issuesPerWeek" header="I/W" sortable style="width: 16.66%"></Column>
+        <Column field="meanSize" header="P/I" sortable style="width: 16.66%"></Column>
       </DataTable>
 
-      <!-- <div v-for="issue of filteredIssues" :key="issue.id">
+      <div v-for="issue of filteredIssues" :key="issue.id">
+        <pre>{{ issue }}</pre>
         {{ issue.key }} points: {{ issue.fields.customfield_10028 }} duration:
         {{ getDuration(issue) }} days - days since done
         {{ getDaysSince(issue) }}
-      </div> -->
+      </div>
     </template>
   </div>
 </template>
@@ -98,6 +103,14 @@ const filteredIssues = computed(() => {
 
   return issues
 })
+
+function getProdBreakageIssues(issues) {
+  return issues.filter(i => i.fields.labels.includes('ProdBreakage'))
+}
+
+function getProcessDeviationIssues(issues) {
+  return issues.filter(i => i.fields.labels.includes('ProcessDeviation'))
+}
 
 const chartVelocityData = computed(() => {
   if (!filteredIssues.value?.length) return
@@ -230,6 +243,7 @@ const userTable = computed(() => {
     perWeek: getPointsPerWeek(getUserIssues(u.accountId)).toFixed(2),
     issuesTotal: getUserIssues(u.accountId).length,
     issuesPerWeek: _.divide(getUserIssues(u.accountId).length, 12).toFixed(2),
+    meanSize: getMeanSize(getUserIssues(u.accountId)),
     avatarUrls: u.avatarUrls,
   }))
 })
@@ -242,7 +256,16 @@ const teamTable = computed(() => {
     total: getTotalPoints(getTeamIssues(t.id)),
     perWeek: getPointsPerWeek(getTeamIssues(t.id)).toFixed(2),
     issuesTotal: getTeamIssues(t.id).length,
+    meanSize: getMeanSize(getTeamIssues(t.id)),
     issuesPerWeek: _.divide(getTeamIssues(t.id).length, 12).toFixed(2),
+    prodBreakageRate: _.divide(
+      getProdBreakageIssues(getTeamIssues(t.id)).length,
+      getTeamIssues(t.id).length,
+    ).toFixed(2),
+    processDeviationRate: _.divide(
+      getProcessDeviationIssues(getTeamIssues(t.id)).length,
+      getTeamIssues(t.id).length,
+    ).toFixed(2),
   }))
 })
 

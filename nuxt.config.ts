@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 
   primevue: {
     options: { unstyled: true },
-    importPT: { as: 'Lara', from: path.resolve(__dirname, './presets/lara/') },
+    importPT: { as: 'Wind', from: path.resolve(__dirname, './presets/wind/') },
   },
 
   tailwindcss: {

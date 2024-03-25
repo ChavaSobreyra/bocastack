@@ -7,26 +7,21 @@ async function getIssues() {
   // if (projectId.value) query += ` AND project = ${projectId.value}`
   // else query += ` AND project IN (${teams.map(t => t.id).join(',')})`
 
-
   // if (userId.value) query += ` AND assignee = ${userId.value}`
 
   query += ' order by resolutiondate DESC'
 
   const url = `/api/jira/rest/api/3/search?jql=${encodeURIComponent(
     query,
-  )}&maxResults=100&expand=changelog&fields=statuscategorychangedate,customfield_10028,project,assignee`
+  )}&maxResults=100&expand=changelog&fields=statuscategorychangedate,customfield_10028,project,assignee,labels`
 
   const issues = []
-  const res = await $fetch(
-    url
-  )
+  const res = await $fetch(url)
 
   issues.push(...res.issues)
 
-  while(issues.length < res.total){
-    const result = await $fetch(
-      `${url}&startAt=${issues.length}`
-    )
+  while (issues.length < res.total) {
+    const result = await $fetch(`${url}&startAt=${issues.length}`)
     issues.push(...result.issues)
   }
 
