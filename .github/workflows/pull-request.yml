@@ -20,13 +20,13 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-16-${{ hashFiles('package-lock.json') }}
+          key: node-18-${{ hashFiles('package-lock.json') }}
           restore-keys: node-
 
       - name: Install dependencies
@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./node_modules
-          key: node-16-${{ hashFiles('package-lock.json') }}
+          key: node-18-${{ hashFiles('package-lock.json') }}
 
       - name: Cache .nuxt
         uses: actions/cache@v3
@@ -64,13 +64,13 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
           path: ./node_modules
-          key: node-16-${{ hashFiles('package-lock.json') }}
+          key: node-18-${{ hashFiles('package-lock.json') }}
 
       - name: Cache .nuxt
         uses: actions/cache@v3
