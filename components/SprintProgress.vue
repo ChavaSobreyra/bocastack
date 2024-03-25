@@ -53,7 +53,7 @@ const props = defineProps<{
 
 const { $dayjs } = useNuxtApp()
 
-const { data } = useIssuesQuery(props.activeSprintId)
+const { data } = useSprintIssuesQuery(props.activeSprintId)
 
 const progress = computed(() => {
   const issues = data.value?.issues

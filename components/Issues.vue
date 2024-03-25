@@ -62,7 +62,7 @@ const props = defineProps<{
   selectedIssueId: number | null
 }>()
 
-const { data } = useIssuesQuery(props.activeSprintId)
+const { data } = useSprintIssuesQuery(props.activeSprintId)
 
 const issues = ref([])
 
