@@ -825,7 +825,6 @@ const allQuestions = [
   'What did you believe for way too long as a child?',
   'What\u2019s your grossest bug story?',
   'Which charity or charitable cause is most deserving of money?',
-  'Have you ever done any stupid or dangerous things when you were drunk? Like what?',
   'Do you clean up the kitchen after every meal? Each night? Or when you run out of dishes or company is coming over?',
   'Are you highly critical of the food and service when you dine out?',
   'What two films would you like to combine into one?',
