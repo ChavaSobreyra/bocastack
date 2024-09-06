@@ -615,7 +615,6 @@ const allQuestions = [
   'If magic was real, what spell would you try to learn first?',
   'What would be the worst thing to hear as you are going under anesthesia before heart surgery?',
   'Do you have a favorite "fancy" meal?',
-  'Have you ever hired a cleaning service? Do you think they are a waste of money or money well spent?',
   'Do you ever pick up hitchhikers? Which type of people would you pick up?',
   'What animal would you most like to eat?',
   'What sort of research, if any, do you do before you travel somewhere?',
