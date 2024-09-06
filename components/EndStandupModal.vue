@@ -124,7 +124,6 @@ const allQuestions = [
   'What language would you like to learn?',
   'What do you think about keeping secrets?',
   'What is your biggest fear?',
-  'If you knew you would die tomorrow, would you feel cheated today?',
   'What is your favorite song?',
   'What gifts do you like?',
   'What are some or your favorite websites?',
