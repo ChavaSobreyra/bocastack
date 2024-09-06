@@ -136,7 +136,6 @@ const allQuestions = [
   'In what ways do you feel rich? Poor?',
   'For what are you grateful?',
   'How do you recharge after a hard or stressful week?',
-  'Your parents can no longer live on their own. What do you do?',
   'What is your favorite commercial?',
   'When was the last time you were embarrassed?',
   'If you were going to get a tattoo, what would it look like?',
