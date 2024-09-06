@@ -770,7 +770,6 @@ const allQuestions = [
   'When taking off your clothes, do you immediately put them in the hamper if dirty, hang them up or fold them if clean or leave them on the floor?',
   'What are your top ten goals for your lifetime?',
   'Do you regularly go to musicals, operas or plays? If not, why?',
-  'Are you currently comfortable with your body? If not, what would you change to make you comfortable?',
   'What\u2019s the worst backhanded compliment you could give someone?',
   'What problem are you currently grappling with?',
   'Are you one who adapts to change easily? Can you cite some examples?',
