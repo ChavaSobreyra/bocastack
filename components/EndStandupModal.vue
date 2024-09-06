@@ -402,7 +402,6 @@ const allQuestions = [
   'What\u2019s the most interesting documentary you\u2019ve ever watched?',
   'How often do you call your parents/family members?',
   'What\u2019s your go to casino game?',
-  'How much does your typical one week vacation cost (not including air fare)? Do you think you take budget vacations, moderate or expensive trips?',
   'What did you most enjoy doing with your family when you were a kid?',
   'Does any particular season make you happier than others? If so, do you know why?',
   'What type of social gatherings do you prefer - small groups or large parties?',
