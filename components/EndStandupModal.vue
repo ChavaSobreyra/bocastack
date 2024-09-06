@@ -1028,7 +1028,6 @@ const allQuestions = [
   'Which apocalyptic dystopia do you think is most likely?',
   'How do you handle the language barrier when you travel to foreign countries? Are you willing to visit places where your language might not be spoken?',
   'In what circumstances do you feel most at peace?',
-  'If the doctors detected that your unborn child had a severe birth defect and they could easily abort it, would you still have the baby?',
   "Do you enjoy shopping, don't care one way or the other, or detest shopping? Does it change whether it is for clothes, electronics or food?",
   'Do you like to exaggerate things for effect?',
   'Do you enjoy going on long road trips as the driver? As the passenger?',
