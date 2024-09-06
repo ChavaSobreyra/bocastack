@@ -767,8 +767,6 @@ const allQuestions = [
   'Did you go to college? Where? What degree(s) did you get, if any? Do you think your education has paid off? How?',
   'When you are in a serious relationship do you tend to ignore your friends? Have you ever had friends get married and suddenly lose contact with their single friends? Is that to be expected?',
   'Did you grow up in an ethnic or culturally unique community? What role does it play in your life? Will you want to stay active in that community when you get married?',
-  'How long do you think most people can "be on their best behavior" and hide their real selves during a courtship?',
-  'Have you ever deliberately thrown up food or ate tiny amounts of food to lose weight?',
   'What are some red flags to watch out for in daily life?',
   'If you could know the truth behind every conspiracy, but you would instantly die if you hinted that you knew the truth, would you want to know?',
   'Do you think that aliens exist?',
