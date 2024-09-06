@@ -150,7 +150,6 @@ const allQuestions = [
   'What is your greatest need?',
   'What do you know a lot about?',
   'How are you unique?',
-  'What discourages you?',
   'What speaks love to you?',
   'What makes you cry?',
   'What is your favorite blog?',
