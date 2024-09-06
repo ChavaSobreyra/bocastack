@@ -1288,7 +1288,6 @@ const allQuestions = [
   "what's the hardest thing you've ever done",
   "have you ever revealed a friend's secret and they found out",
   'who is one of your heroes and why do they inspire you',
-  'would you keep a secret if you knew someone would get hurt if you did',
   'when you receive two invitations at the same time how do you decide which one to accept',
   'what strengths do you bring to your family and do you feel they are appreciated',
   'who do you think is the most imporant person alive today',
