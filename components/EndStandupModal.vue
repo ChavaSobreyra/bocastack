@@ -309,7 +309,6 @@ const allQuestions = [
   'What\u2019s your secret talent?',
   'What inconsequential super power would you like to have?',
   'Should kidneys be able to be bought and sold?',
-  'Have you ever hired a gardener? Do you think they are a waste of money or money well spent?',
   'Do you get irritated when you have to wait in long lines? Will you wait 45 minutes to be seated in a restaurant?',
   'What chore do you most detest?',
   'At what point would you consider yourself "rich"?',
