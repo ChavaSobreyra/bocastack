@@ -404,7 +404,6 @@ const allQuestions = [
   'How often do you get sick? Is it a cold, flu or usually something else?',
   'Do you get your pets "fixed" or do you allow them to keep producing litters? What do you do with the babies?',
   'What\u2019s the most amazing true story you\u2019ve heard?',
-  'Have you ever committed a felony? Have you ever been arrested?',
   'If you wanted to become a one-income household after the birth of your child, what lifestyle changes would need to take place?',
   'Were you always getting in trouble for a particular thing when you were a child?',
   'How do you feel about women wearing makeup? What do you think is ideal?',
