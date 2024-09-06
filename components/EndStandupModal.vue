@@ -1072,7 +1072,6 @@ const allQuestions = [
   'Have you ever saved for a major expense or purchase or have you always put it on credit?',
   'How much do you think names affect the outcomes of people\u2019s lives?',
   'One of my favorite things to do is...',
-  'What do you think about pornography? Do you think it is ever helpful?',
   'Do you have the self-control to only spend each month what you can pay off? Or do you always carry balances on your credit cards?',
   'Do you tend to keep a lot of thoughts and feelings to yourself or do you share them pretty openly?',
   'When did something start out badly for you but in the end, it was great?',
