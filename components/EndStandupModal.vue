@@ -866,7 +866,6 @@ const allQuestions = [
   'Do you have problems letting someone else control the remote control? Are you a channel surfer?',
   'If someone wanted to finance the startup of your business with no strings attached, what business would you start?',
   'If you could live one year of your life all over again without changing a thing, what year would you choose? Why?',
-  'What\u2019s the most disgusting sounding word in the English language?',
   'How often do you go to concerts? What kinds? Would you go more often if you had more time/money?',
   'Do you like to throw holiday parties or dinners? What do you usually do?',
   'Will you eat everything on your plate no matter how much is there (assuming you like the food)? Or will you quit when you feel full enough? Do you need to feel "stuffed" to be satisfied?',
