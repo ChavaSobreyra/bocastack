@@ -8,3 +8,4 @@ tmp/*
 test_reports
 screenshots
 .env
+.DS_Store
