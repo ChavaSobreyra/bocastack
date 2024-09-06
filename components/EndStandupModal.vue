@@ -392,7 +392,6 @@ const allQuestions = [
   'If you could talk to animals and they would understand you, but you couldn\u2019t understand them, what would you do with that power?',
   'Is there anything that makes you feel homesick, nostalgic or sentimental?',
   'What word is a lot of fun to say?',
-  'Have you ever hit someone in a previous relationship?',
   'What animal would be cutest if scaled down to the size of a cat?',
   'What is the minimum amount you think you could spend on a wedding and be happy with it?',
   'What country is the strangest?',
