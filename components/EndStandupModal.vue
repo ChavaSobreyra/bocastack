@@ -129,7 +129,6 @@ const allQuestions = [
   'What are some or your favorite websites?',
   'What\u2019s the most money you\u2019ve ever given away?',
   'What\u2019s the stupidest thing you\u2019ve ever done?',
-  'You want to create a team for a project. What\u2019s the project? Who\u2019s on the team?',
   'What do you consider when you make decisions?',
   'Other than me, who are your best friends? Why do you like them?',
   'What one small thing could you do to be more organized?',
