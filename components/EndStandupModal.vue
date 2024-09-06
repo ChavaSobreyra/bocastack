@@ -188,7 +188,6 @@ const allQuestions = [
   'What advice would you give someone just graduating from high school?',
   'What is something you avoid?',
   'What do you do when you know someone is angry with you?',
-  'What do you think heaven will be like?',
   'For what item would you be willing to stand in line more than four hours to buy?',
   'With whom are you angry?',
   'If you could live in any time in history,r what would you choose?',
