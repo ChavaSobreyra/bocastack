@@ -408,7 +408,6 @@ const allQuestions = [
   'What\u2019s incredibly cheap and you would pay way more for?',
   'What did you think was going to be amazing but turned out to be horrible?',
   'What product do you wish a company would make a \u201Csmart\u201D version of?',
-  'Is it difficult for you to say "I love you"?',
   'In which areas of your life do you feel like you are an independent?',
   'What sort of reaction do you have when you get very upset?',
   'Do you have an idol? Do you try to model yourself after him or her in some way?',
