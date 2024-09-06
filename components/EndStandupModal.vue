@@ -265,7 +265,6 @@ const allQuestions = [
   'Are you allergic to animals? If your fianc\u00E9 was allergic to your pets, would you be willing to give them away to a good home?',
   'If you were given one thousand acres of land that you didn\u2019t need to pay taxes on but couldn\u2019t sell, what would you do with it?',
   'How many hours of TV do you watch in an average day? When do you turn the television on and when do you turn it off?',
-  'How long is it wise to wait to tell someone you love him or her? Should you try to build a good friendship first?',
   'What\u2019s something that everyone knows is true, but we don\u2019t like to admit it?',
   'What nicknames do you have for people in your life?',
   'What are some things that you consider a waste of time?',
