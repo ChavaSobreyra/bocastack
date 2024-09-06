@@ -311,7 +311,6 @@ const allQuestions = [
   'What crazy thing have you done in the name of "love"?',
   'What mythical creature do you wish actually existed?',
   'In what situations, do you wish you could throw down a smoke bomb and disappear?',
-  'How would you feel if one of your friends said he or she was gay? Would you still want to socialize with him or her?',
   'What was the most important appointment or deadline you missed?',
   'What sort of physical affection do you think is appropriate in public? Does it matter whether or not the couple is married?',
   'What\u2019s your best story of you or someone else trying to be sneaky and failing miserably?',
