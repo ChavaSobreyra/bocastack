@@ -1009,7 +1009,6 @@ const allQuestions = [
   'How many movies do you usually watch in a month?',
   "Do you think you would enjoy going on a vacation with your sweetheart's family? Would you detest it or do you not know them well enough to decide?",
   'Were you taught proper table manners growing up?',
-  'Do you feel strongly against people wearing fur coats? Are you liberal, conservative or somewhere in the middle?',
   'Do you have money invested in the stock market? Do you check your stocks every day? How often do you make trades?',
   'Do you find it difficult to compromise on things?',
   'What escalated very quickly?',
