@@ -1119,7 +1119,6 @@ const allQuestions = [
   'Should your sweetheart love you just the way you are, or would you be willing to make some changes (the way you dress, shaving, new hairstyle, etc) to become more attractive to him or her?',
   'What\u2019s the most comfortable bed or chair you\u2019ve ever been in?',
   "Do you like to travel on the spur of the moment (hey, let's drive to the mountains next weekend)?",
-  'Have you ever dated someone who worked in your company? Did the company have a policy against that?',
   'What are you most fearful of? How does that fear keep you from doing things you would like to do?',
   'Can you go out and enjoy a meal or do you always have to "rate" it?',
   'Do you like to be the life of the party or do you prefer intimate, one on one conversation?',
