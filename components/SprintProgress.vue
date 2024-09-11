@@ -25,7 +25,7 @@
           &nbsp;
         </div>
         <div
-          v-if="progress.percentInProgress"
+          v-if="Number(progress.percentDone) < 100"
           class="inline-block bg-blue-500 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.percentInProgress}%`"
         >
@@ -83,8 +83,7 @@ const progress = computed(() => {
   const daysRemaining = Math.max(0, effectiveEndDate.businessTimeDiff(today, 'days') * -1)
   const sprintLength = Math.abs(endDate.businessTimeDiff(startDate, 'days'))
   const percentDone = ((donePoints / totalPoints) * 100).toFixed(0)
-  const percentInProgress =
-    Number(percentDone) >= 100 ? 0 : ((inProgressPoints / totalPoints) * 100).toFixed(0)
+  const percentInProgress = ((inProgressPoints / totalPoints) * 100).toFixed(0)
   const expectedDonePoints = Math.min(
     totalPoints,
     Number((((sprintLength - daysRemaining) / sprintLength) * totalPoints).toFixed(0)),
