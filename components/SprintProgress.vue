@@ -32,7 +32,7 @@
           {{ Number(progress.percentDone) + Number(progress.percentInProgress) }}%
         </div>
       </div>
-      <div v-if="progress.expectedProgress" class="w-full bg-gray-200 dark:bg-gray-300">
+      <div class="w-full bg-gray-200 dark:bg-gray-300">
         <div
           class="bg-teal-300 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.expectedProgress}%`"
@@ -80,8 +80,8 @@ const progress = computed(() => {
   const endDate = $dayjs(issues[0].fields.sprint.endDate)
   const today = $dayjs()
   const effectiveEndDate = today.isAfter(endDate) ? today : endDate
-  const daysRemaining = Math.max(0, effectiveEndDate.businessTimeDiff(today, 'days'))
-  const sprintLength = endDate.businessTimeDiff(startDate, 'days')
+  const daysRemaining = Math.max(0, effectiveEndDate.businessTimeDiff(today, 'days') * -1)
+  const sprintLength = Math.abs(endDate.businessTimeDiff(startDate, 'days'))
   const percentDone = ((donePoints / totalPoints) * 100).toFixed(0)
   const percentInProgress =
     Number(percentDone) >= 100 ? 0 : ((inProgressPoints / totalPoints) * 100).toFixed(0)
@@ -96,6 +96,8 @@ const progress = computed(() => {
 
   // @ts-ignore
   return {
+    startDate,
+    endDate,
     daysRemaining,
     sprintLength,
     totalPoints,
