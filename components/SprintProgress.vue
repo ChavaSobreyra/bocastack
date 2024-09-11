@@ -82,7 +82,8 @@ const progress = computed(() => {
   const daysRemaining = Math.max(0, effectiveEndDate.businessTimeDiff(today, 'days'))
   const sprintLength = endDate.businessTimeDiff(startDate, 'days')
   const percentDone = ((donePoints / totalPoints) * 100).toFixed(0)
-  const percentInProgress = ((inProgressPoints / totalPoints) * 100).toFixed(0)
+  const percentInProgress =
+    Number(percentDone) >= 100 ? 0 : ((inProgressPoints / totalPoints) * 100).toFixed(0)
   const expectedDonePoints = Math.min(
     totalPoints,
     Number((((sprintLength - daysRemaining) / sprintLength) * totalPoints).toFixed(0)),
