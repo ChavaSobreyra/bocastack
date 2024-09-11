@@ -25,6 +25,7 @@
           &nbsp;
         </div>
         <div
+          v-if="progress.percentInProgress"
           class="inline-block bg-blue-500 py-1 px-4 text-right font-medium leading-none text-white"
           :style="`width: ${progress.percentInProgress}%`"
         >
