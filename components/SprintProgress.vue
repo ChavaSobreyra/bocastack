@@ -77,15 +77,20 @@ const progress = computed(() => {
 
   const startDate = $dayjs(issues[0].fields.sprint.startDate)
   const endDate = $dayjs(issues[0].fields.sprint.endDate)
-  const daysRemaining = endDate.businessTimeDiff($dayjs(), 'days')
+  const today = $dayjs()
+  const effectiveEndDate = today.isAfter(endDate) ? today : endDate
+  const daysRemaining = Math.max(0, effectiveEndDate.businessTimeDiff(today, 'days'))
   const sprintLength = endDate.businessTimeDiff(startDate, 'days')
   const percentDone = ((donePoints / totalPoints) * 100).toFixed(0)
   const percentInProgress = ((inProgressPoints / totalPoints) * 100).toFixed(0)
-  const expectedDonePoints = (
-    ((sprintLength - daysRemaining) / sprintLength) *
-    totalPoints
-  ).toFixed(0)
-  const expectedProgress = (((sprintLength - daysRemaining) / sprintLength) * 100).toFixed(0)
+  const expectedDonePoints = Math.min(
+    totalPoints,
+    Number((((sprintLength - daysRemaining) / sprintLength) * totalPoints).toFixed(0)),
+  )
+  const expectedProgress = Math.min(
+    100,
+    Number((((sprintLength - daysRemaining) / sprintLength) * 100).toFixed(0)),
+  )
 
   // @ts-ignore
   return {
