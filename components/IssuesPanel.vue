@@ -1,21 +1,22 @@
 <template>
   <div v-if="data.fields" class="side-panel text-gray-900">
-    <div class="flex justify-end">
-      <a :href="`https://torticity.atlassian.net/browse/${data.key}`" target="_blank">
-        <LinkIcon class="h-6 w-6 text-blue-600" />
-      </a>
-      <button @click="$emit('close-panel')">
-        <XCircleIcon class="h-6 w-6 text-slate-500" />
-      </button>
-    </div>
-
-    <div class="pt-2">
-      <img
-        v-if="data.fields.assignee"
-        class="h-10 w-10 rounded-full"
-        :src="data.fields.assignee.avatarUrls['48x48']"
-        alt=""
-      />
+    <div class="flex justify-between items-center">
+      <div class="flex justify-start">
+        <img
+          v-if="data.fields.assignee"
+          class="h-8 w-8 rounded-full"
+          :src="data.fields.assignee.avatarUrls['48x48']"
+          alt=""
+        />
+      </div>
+      <div class="flex justify-end">
+        <a :href="`https://torticity.atlassian.net/browse/${data.key}`" target="_blank">
+          <LinkIcon class="h-6 w-6 text-blue-600 mr-5" />
+        </a>
+        <button @click="$emit('close-panel')">
+          <XCircleIcon class="h-6 w-6 text-slate-500" />
+        </button>
+      </div>
     </div>
 
     <div class="flex py-6">
@@ -51,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { XCircleIcon } from '@heroicons/vue/24/solid'
+import { XCircleIcon, LinkIcon } from '@heroicons/vue/24/solid'
 
 const props = defineProps<{
   selectedIssueId: number
