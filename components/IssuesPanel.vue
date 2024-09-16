@@ -1,6 +1,9 @@
 <template>
   <div v-if="data.fields" class="side-panel text-gray-900">
     <div class="flex justify-end">
+      <a :href="`https://torticity.atlassian.net/browse/${data.key}`" target="_blank">
+        <LinkIcon class="h-6 w-6 text-blue-600" />
+      </a>
       <button @click="$emit('close-panel')">
         <XCircleIcon class="h-6 w-6 text-slate-500" />
       </button>
