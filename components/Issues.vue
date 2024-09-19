@@ -19,9 +19,10 @@
         </span>
 
         <img class="text-xs" :src="issue.fields.issuetype.iconUrl" alt="" />
-        <span class="pl-2">{{ issue.fields.summary }}</span>
 
-        <span v-if="issue.fields.flagged" class="ml-1 mr-2">🚩</span>
+        <p class="pl-4 leading-none">
+          <span >{{ issue.fields.summary }}</span>
+                  <span v-if="issue.fields.flagged" class="ml-1 mr-2">🚩</span>
         <span v-if="['UAT', 'UX Review'].includes(issue.fields.status.name)" class="ml-1 mr-2">
           <span
             class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
@@ -29,6 +30,11 @@
             UAT
           </span>
         </span>
+          <br />
+          <span class="text-gray-400 text-xs">{{ issue.fields.epic?.summary }}</span>
+        </p>
+
+
       </p>
       <div class="flex items-center justify-self-end">
         <p

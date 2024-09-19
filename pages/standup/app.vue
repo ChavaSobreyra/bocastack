@@ -27,13 +27,13 @@
         </div>
       </section>
 
-      <section class="pt-8">
-        <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-8" />
-        <div class="overflow-hidden rounded bg-white px-8 py-11">
-          <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
-            <span class="justify-self-start text-lg">Work in progress</span>
-            <span class="justify-self-end text-4xl">🚧</span>
-          </div>
+      <section>
+        <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-12" />
+        <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
+          <span class="justify-self-start text-lg">Work in progress</span>
+          <span class="justify-self-end text-4xl">🚧</span>
+        </div>
+        <div class="overflow-hidden rounded bg-white px-6 py-8">
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"
@@ -44,12 +44,12 @@
         </div>
       </section>
 
-      <section class="pt-8">
-        <div class="overflow-hidden rounded bg-white px-8 py-11">
-          <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
-            <span class="justify-self-start text-lg">Upcoming</span>
-            <span class="justify-self-end text-4xl">⏰</span>
-          </div>
+      <section class="mt-8">
+        <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
+          <span class="justify-self-start text-lg">Upcoming</span>
+          <span class="justify-self-end text-4xl">⏰</span>
+        </div>
+        <div class="overflow-hidden rounded bg-white px-6 py-8">
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"
