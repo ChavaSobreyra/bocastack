@@ -35,8 +35,6 @@
         </p>
 
 
-      </p>
-      <div class="flex items-center justify-self-end">
         <p
           class="rounded-md bg-gray-100 px-2 py-0.5 text-center text-sm font-semibold text-gray-800"
         >
