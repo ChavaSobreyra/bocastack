@@ -10,7 +10,7 @@
         />
       </div>
       <div class="flex justify-end">
-        <a :href="`https://torticity.atlassian.net/browse/${data.key}`" target="_blank">
+        <a :href="`${jiraBaseUrl}/${data.key}`" target="_blank">
           <LinkIcon class="h-6 w-6 text-blue-600 mr-5" />
         </a>
         <button @click="$emit('close-panel')">
@@ -53,6 +53,8 @@
 
 <script setup lang="ts">
 import { XCircleIcon, LinkIcon } from '@heroicons/vue/24/solid'
+
+const { jiraBaseUrl } = useRuntimeConfig().public
 
 const props = defineProps<{
   selectedIssueId: number
