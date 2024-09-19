@@ -30,7 +30,7 @@
           </span>
         </span>
         <br />
-        <span class="text-xs text-gray-400">{{ issue.fields.epic?.summary }}</span>
+        <span class="pl-2 text-xs text-gray-400">{{ issue.fields.epic?.summary }}</span>
       </p>
 
       <div class="flex items-center justify-self-end">
