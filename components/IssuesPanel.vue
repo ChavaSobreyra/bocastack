@@ -1,6 +1,6 @@
 <template>
   <div v-if="data.fields" class="side-panel text-gray-900">
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
       <div class="flex justify-start">
         <img
           v-if="data.fields.assignee"
@@ -11,7 +11,7 @@
       </div>
       <div class="flex justify-end">
         <a :href="`${jiraBaseUrl}/${data.key}`" target="_blank">
-          <LinkIcon class="h-6 w-6 text-blue-600 mr-5" />
+          <LinkIcon class="mr-5 h-6 w-6 text-blue-600" />
         </a>
         <button @click="$emit('close-panel')">
           <XCircleIcon class="h-6 w-6 text-slate-500" />
