@@ -1,9 +1,12 @@
-const { jiraAuth } = useRuntimeConfig()
+const {
+  jiraAuth,
+  public: { jiraBaseUrl },
+} = useRuntimeConfig()
 
 export default defineEventHandler(event => {
   const url = event.node.req.url?.replace('/api/jira', '')
 
-  const result = $fetch(`https://torticity.atlassian.net/${url}`, {
+  const result = $fetch(`${jiraBaseUrl}/${url}`, {
     headers: {
       Authorization: 'Basic ' + Buffer.from(jiraAuth).toString('base64'),
     },

@@ -12,11 +12,11 @@
     <div class="container relative z-50 mx-auto max-w-3xl justify-self-center pb-16">
       <Nav />
       <section class="pt-8">
-        <div class="overflow-hidden rounded bg-white px-8 py-11">
-          <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
-            <span class="justify-self-start text-lg">Recently completed</span>
-            <span class="justify-self-end text-4xl">🎉 🥳</span>
-          </div>
+        <div class="grid grid-cols-2 items-center px-1 pb-2 font-bold text-gray-900">
+          <span class="justify-self-start text-lg">Recently completed</span>
+          <span class="justify-self-end text-3xl">🎉 🥳</span>
+        </div>
+        <div class="overflow-hidden rounded bg-white p-6">
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"
@@ -27,13 +27,13 @@
         </div>
       </section>
 
-      <section class="pt-8">
-        <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-8" />
-        <div class="overflow-hidden rounded bg-white px-8 py-11">
-          <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
-            <span class="justify-self-start text-lg">Work in progress</span>
-            <span class="justify-self-end text-4xl">🚧</span>
-          </div>
+      <section>
+        <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-12" />
+        <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
+          <span class="justify-self-start text-lg">Work in progress</span>
+          <span class="justify-self-end text-3xl">🚧</span>
+        </div>
+        <div class="overflow-hidden rounded bg-white p-6">
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"
@@ -44,12 +44,12 @@
         </div>
       </section>
 
-      <section class="pt-8">
-        <div class="overflow-hidden rounded bg-white px-8 py-11">
-          <div class="grid grid-cols-2 items-center px-1 pb-8 font-bold text-gray-900">
-            <span class="justify-self-start text-lg">Upcoming</span>
-            <span class="justify-self-end text-4xl">⏰</span>
-          </div>
+      <section class="mt-8">
+        <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
+          <span class="justify-self-start text-lg">Upcoming</span>
+          <span class="justify-self-end text-3xl">⏰</span>
+        </div>
+        <div class="overflow-hidden rounded bg-white p-6">
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"

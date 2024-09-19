@@ -1,6 +1,6 @@
 <template>
   <div v-if="data.fields" class="side-panel text-gray-900">
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
       <div class="flex justify-start">
         <img
           v-if="data.fields.assignee"
@@ -10,8 +10,8 @@
         />
       </div>
       <div class="flex justify-end">
-        <a :href="`https://torticity.atlassian.net/browse/${data.key}`" target="_blank">
-          <LinkIcon class="h-6 w-6 text-blue-600 mr-5" />
+        <a :href="`${jiraBaseUrl}/${data.key}`" target="_blank">
+          <LinkIcon class="mr-5 h-6 w-6 text-blue-600" />
         </a>
         <button @click="$emit('close-panel')">
           <XCircleIcon class="h-6 w-6 text-slate-500" />
@@ -53,6 +53,8 @@
 
 <script setup lang="ts">
 import { XCircleIcon, LinkIcon } from '@heroicons/vue/24/solid'
+
+const { jiraBaseUrl } = useRuntimeConfig().public
 
 const props = defineProps<{
   selectedIssueId: number
