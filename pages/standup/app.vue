@@ -31,7 +31,7 @@
         <SprintProgress v-if="activeSprintId" :active-sprint-id="activeSprintId" class="mb-12" />
         <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
           <span class="justify-self-start text-lg">Work in progress</span>
-          <span class="justify-self-end text-4xl">🚧</span>
+          <span class="justify-self-end text-3xl">🚧</span>
         </div>
         <div class="overflow-hidden rounded bg-white px-6 py-8">
           <Issues
@@ -47,7 +47,7 @@
       <section class="mt-8">
         <div class="grid grid-cols-2 items-center px-1 pb-4 font-bold text-gray-900">
           <span class="justify-self-start text-lg">Upcoming</span>
-          <span class="justify-self-end text-4xl">⏰</span>
+          <span class="justify-self-end text-3xl">⏰</span>
         </div>
         <div class="overflow-hidden rounded bg-white px-6 py-8">
           <Issues
