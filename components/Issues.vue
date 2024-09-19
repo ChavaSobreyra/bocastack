@@ -10,7 +10,7 @@
       }"
       @click="emit('selected', issue.id)"
     >
-      <p class="flex items-center text-gray-900">
+      <p class="align-center flex items-center text-gray-900">
         <span v-if="filter === 'in-progress'" class="inline-block w-10">
           <div class="w-4 text-center">
             <div class="text-[9px] leading-none">DAY</div>
