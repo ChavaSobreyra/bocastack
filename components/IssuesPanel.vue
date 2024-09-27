@@ -10,7 +10,7 @@
         />
       </div>
       <div class="flex justify-end">
-        <a :href="`${jiraBaseUrl}/${data.key}`" target="_blank">
+        <a :href="`${jiraBaseUrl}/browse/${data.key}`" target="_blank">
           <LinkIcon class="mr-5 h-6 w-6 text-blue-600" />
         </a>
         <button @click="$emit('close-panel')">
