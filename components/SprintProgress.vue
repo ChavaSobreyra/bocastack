@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="mt-12 mb-2 font-bold text-gray-900">Sprint Progress</h3>
+    <span class="mb-2 text-xl font-bold text-slate-100">Sprint Progress</span>
     <IssuesProgress v-if="data.issues" :issues="data.issues" />
   </div>
 </template>
