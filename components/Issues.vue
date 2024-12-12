@@ -104,7 +104,19 @@ const emit = defineEmits(['selected'])
 watch(data, setIssues, { immediate: true })
 
 function daysInStatus(issue: Issue) {
-  return Math.abs($dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))) + 1
+  const changeDate = $dayjs(issue.fields.statuscategorychangedate)
+  const now = $dayjs()
+
+  // If the status changed today, return 1
+  if (changeDate.format('YYYY-MM-DD') === now.format('YYYY-MM-DD')) return 1
+
+  // If it changed yesterday but less than 24 hours ago, return 1
+  const isYesterday =
+    now.subtract(1, 'day').format('YYYY-MM-DD') === changeDate.format('YYYY-MM-DD')
+  if (isYesterday && now.diff(changeDate, 'hours') < 24) return 1
+
+  // Otherwise calculate business days
+  return $dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))
 }
 
 function setIssues() {
