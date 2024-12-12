@@ -114,8 +114,8 @@ function inProgressIssues() {
 
   return orderBy(
     issuesGroupedByUser,
-    group => Math.max(...group.map(i => daysInStatus(i))),
-    'desc',
+    [group => Math.max(...group.map(i => daysInStatus(i))), 'desc'],
+    ['fields.assignee.accountId', 'asc'],
   ).flat()
 }
 
