@@ -92,24 +92,18 @@ function replaceAttachments(text: string, attachments: any[]) {
 
   let updatedText = text
 
-  // Replace both relative and full URLs for attachments
   attachments?.forEach(attachment => {
-    // Replace relative paths
     const relativePattern = new RegExp(`/rest/api/3/attachment/content/${attachment.id}`, 'g')
-
-    // Replace full Jira URLs
     const fullPattern = new RegExp(
       `https://[^/]+/rest/api/3/attachment/content/${attachment.id}`,
       'g',
     )
 
-    // Get the actual content URL from the attachment
-    const contentUrl = `${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}`
+    const contentUrl = `${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}?atlassian-token=no-check`
 
     updatedText = updatedText.replace(relativePattern, contentUrl).replace(fullPattern, contentUrl)
   })
 
-  // Style links
   updatedText = updatedText.replaceAll(
     /<a([^>]+)>/gi,
     '<a$1 class="text-blue-400 hover:text-blue-300 transition-colors">',
