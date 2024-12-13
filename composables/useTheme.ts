@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-
 import type { Theme } from '../types/theme'
 
 // default to dark theme cause we're cool 😎
