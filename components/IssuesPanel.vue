@@ -59,10 +59,21 @@
         </div>
       </div>
 
+      <div v-for="attachment in data.fields.attachment" :key="attachment.id">
+        <video
+          v-if="isVideo(attachment.filename)"
+          controls
+          class="w-full rounded-lg border border-slate-700"
+          preload="none"
+          :src="`${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}?atlassian-token=no-check`"
+        />
+      </div>
+
+      <!-- Description -->
       <div
         id="jira-html"
         class="prose prose-invert prose-slate max-w-none overflow-x-auto break-words"
-        v-html="replaceAttachments(data.renderedFields.description, data.renderedFields.attachment)"
+        v-html="processContent(data.renderedFields.description, data.renderedFields.attachment)"
       />
     </div>
   </div>
@@ -87,7 +98,12 @@ watch(
   },
 )
 
-function replaceAttachments(text: string, attachments: any[]) {
+const isVideo = (filename: string) => {
+  const videoExtensions = ['.mp4', '.webm', '.ogg']
+  return videoExtensions.some(ext => filename.toLowerCase().endsWith(ext))
+}
+
+function processContent(text: string, attachments: any[]) {
   if (!text) return ''
 
   let updatedText = text
@@ -101,9 +117,18 @@ function replaceAttachments(text: string, attachments: any[]) {
 
     const contentUrl = `${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}?atlassian-token=no-check`
 
-    updatedText = updatedText.replace(relativePattern, contentUrl).replace(fullPattern, contentUrl)
+    // Check if the attachment is an MP4 file
+    if (attachment.filename.toLowerCase().endsWith('.mp4'))
+      // Replace the attachment URL with the video element
+      updatedText = updatedText.replace(relativePattern, '#').replace(fullPattern, '#')
+    // Handle non-video attachments as before
+    else
+      updatedText = updatedText
+        .replace(relativePattern, contentUrl)
+        .replace(fullPattern, contentUrl)
   })
 
+  // Add standard link styling
   updatedText = updatedText.replaceAll(
     /<a([^>]+)>/gi,
     '<a$1 class="text-blue-400 hover:text-blue-300 transition-colors">',
