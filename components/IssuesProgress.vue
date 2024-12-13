@@ -4,8 +4,8 @@
       <!-- Main progress card -->
       <div class="mb-4 flex items-center justify-between">
         <div class="space-y-1 pt-2">
-          <h3 class="text-sm font-bold text-gray-300">{{ sprintName }}</h3>
-          <p class="text-xs text-gray-200">
+          <h3 class="text-sm font-bold dark:text-gray-300">{{ sprintName }}</h3>
+          <p class="text-sm dark:text-gray-200">
             {{ $dayjs(startDate).format('MMM D') }} - {{ $dayjs(endDate).format('MMM D') }}
           </p>
         </div>
@@ -25,18 +25,18 @@
       <div class="space-y-2">
         <!-- Actual progress -->
         <div class="space-y-1">
-          <div class="flex justify-between text-xs text-gray-300">
+          <div class="flex justify-between text-sm dark:text-gray-300">
             <span>Current Progress</span>
             <span>{{ Number(percentDone) + Number(percentInProgress) }}%</span>
           </div>
           <div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
             <div class="flex h-full">
               <div
-                class="bg-emerald-500 transition-all duration-500"
+                class="bg-green-500 transition-all duration-500"
                 :style="`width: ${percentDone}%`"
               />
               <div
-                class="bg-blue-400 transition-all duration-500"
+                class="bg-sky-400 transition-all duration-500"
                 :style="`width: ${percentInProgress}%`"
               />
             </div>
@@ -45,7 +45,7 @@
 
         <!-- Expected progress -->
         <div class="space-y-1">
-          <div class="flex justify-between text-xs text-gray-300">
+          <div class="flex justify-between text-sm dark:text-gray-300">
             <span>Expected Progress</span>
             <span>{{ expectedProgress }}%</span>
           </div>
@@ -60,29 +60,28 @@
 
       <!-- Key metrics -->
       <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div class="rounded-lg border border-slate-700/50 bg-slate-700/30 p-3">
-          <div class="text-xs">Story Points{{ totalPoints }}</div>
-
+        <div class="rounded-lg border border-slate-700/50 p-3 dark:bg-slate-700/30">
+          <div class="text-xs font-bold">Story Points</div>
           <div class="mt-1 text-lg font-semibold">{{ totalPoints }}</div>
         </div>
 
-        <div class="rounded-lg border border-slate-700/50 bg-slate-700/30 p-3">
+        <div class="rounded-lg border border-slate-700/50 p-3 dark:bg-slate-700/30">
           <div class="text-xs font-bold">Completed</div>
-          <div class="mt-1 text-lg font-semibold text-emerald-600">
+          <div class="mt-1 text-lg font-semibold text-green-500">
             {{ donePoints }}
-            <span class="text-xs text-gray-300">({{ percentDone }}%)</span>
+            <span class="text-xs text-gray-500 dark:text-gray-300">({{ percentDone }}%)</span>
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-700/50 bg-slate-700/30 p-3">
+        <div class="rounded-lg border border-slate-700/50 p-3 dark:bg-slate-700/30">
           <div class="text-xs font-bold">In Progress</div>
-          <div class="mt-1 text-lg font-semibold text-blue-600">
+          <div class="mt-1 text-lg font-semibold text-sky-500 dark:text-sky-400">
             {{ inProgressPoints }}
-            <span class="text-xs text-gray-300">({{ percentInProgress }}%)</span>
+            <span class="text-xs text-gray-500 dark:text-gray-300">({{ percentInProgress }}%)</span>
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-700/50 bg-slate-700/30 p-3">
+        <div class="rounded-lg border border-slate-700/50 p-3 dark:bg-slate-700/30">
           <div class="text-xs font-bold">Days Remaining</div>
           <div class="mt-1 text-lg font-semibold">{{ daysRemaining }}</div>
         </div>
@@ -90,7 +89,7 @@
 
       <!-- Velocity indicator -->
       <div
-        class="mt-4 flex items-center justify-between rounded-lg border border-slate-700/50 bg-slate-700/30 p-3"
+        class="mt-4 flex items-center justify-between rounded-lg border border-slate-700/50 p-3 dark:bg-slate-700/30"
       >
         <div class="space-y-1">
           <div class="text-xs font-bold">Required Velocity</div>
@@ -101,7 +100,7 @@
         <div
           class="text-xs"
           :class="{
-            'text-emerald-600': donePoints >= expectedDonePoints,
+            'text-green-600': donePoints >= expectedDonePoints,
             'font-semibold text-rose-500': donePoints < expectedDonePoints,
           }"
         >
