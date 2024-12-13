@@ -1,51 +1,46 @@
 <template>
-  <ul role="list" class="divide-y divide-gray-200">
+  <ul role="list" class="space-y-2 divide-y divide-slate-700/30">
     <li
       v-for="issue of issues"
       :key="issue.id"
-      class="grid select-none grid-flow-col py-3 px-2 hover:rounded-md hover:bg-gray-100"
+      class="group grid cursor-pointer select-none grid-flow-col rounded-lg bg-slate-700/30 p-4 transition-all duration-200 hover:scale-105 hover:bg-slate-700/80"
       :class="{
-        'rounded-md bg-gray-100': props.selectedIssueId === issue.id,
-        'bg-white-100': props.selectedIssueId !== issue.id,
+        'scale-105 bg-slate-700/80': props.selectedIssueId === issue.id,
+        'bg-transparent': props.selectedIssueId !== issue.id,
       }"
       @click="emit('selected', issue.id)"
     >
-      <div class="flex items-center text-gray-900">
-        <span v-if="filter === 'in-progress'" class="inline-block w-10">
-          <div class="w-4 text-center">
-            <div class="text-[9px] leading-none">DAY</div>
-            <div class="text-base leading-none">{{ daysInStatus(issue) }}</div>
+      <div class="items-center space-y-2 text-slate-100">
+        <div class="flex space-x-2">
+          <img class="h-6 w-6" :src="issue.fields.issuetype.iconUrl" alt="" />
+          <Badge class="rounded-md bg-slate-900 py-1 px-2 text-sm">
+            {{ issue.fields.customfield_10028 ? issue.fields.customfield_10028 : '-' }} points
+          </Badge>
+          <div v-if="filter === 'in-progress'" class="pt-1 text-sm">
+            Open for {{ daysInStatus(issue) }} {{ daysInStatus(issue) > 1 ? 'days' : 'day' }}
           </div>
-        </span>
-
-        <img class="text-xs" :src="issue.fields.issuetype.iconUrl" alt="" />
-
-        <div class="pl-4 leading-tight">
-          <span>{{ issue.fields.summary }}</span>
-          <span v-if="issue.fields.flagged" class="ml-1 mr-2">🚩</span>
-          <span v-if="['UAT', 'UX Review'].includes(issue.fields.status.name)" class="ml-1 mr-2">
+        </div>
+        <div class="leading-tight">
+          <div class="flex items-center gap-2">
+            <span class="font-medium">{{ issue.fields.summary }}</span>
+            <span v-if="issue.fields.flagged" class="text-red-400">🚩</span>
             <span
-              class="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-2 py-1 text-center text-xs font-semibold text-white"
+              v-if="['UAT', 'UX Review'].includes(issue.fields.status.name)"
+              class="rounded-full bg-blue-500/20 px-2 py-0.5 text-xs font-medium text-blue-200"
             >
               UAT
             </span>
-          </span>
-          <br />
-          <span class="text-gray-600 text-xs">
+          </div>
+          <span class="text-xs text-slate-400">
             {{ issue.fields.epic?.summary }}
           </span>
         </div>
       </div>
-      <div class="flex items-center justify-self-end">
-        <p
-          class="rounded-md bg-gray-100 px-2 py-0.5 text-center text-sm font-semibold text-gray-800"
-        >
-          {{ issue.fields.customfield_10028 ? issue.fields.customfield_10028 : '-' }}
-        </p>
 
+      <div class="flex items-center justify-self-end">
         <img
           v-if="issue.fields.assignee"
-          class="ml-5 h-8 w-8 rounded-full"
+          class="h-10 w-10 rounded-full"
           :src="issue.fields.assignee.avatarUrls['48x48']"
           alt=""
         />
@@ -59,6 +54,7 @@ import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 import shuffle from 'lodash/shuffle.js'
 import sortBy from 'lodash/sortBy.js'
+import Badge from 'primevue/badge'
 
 const { $dayjs } = useNuxtApp()
 
@@ -70,14 +66,57 @@ const props = defineProps<{
 
 const { data } = useIssuesQuery(props.activeSprintId)
 
-const issues = ref([])
+type Issue = {
+  id: number
+  key: string
+  fields: {
+    flagged: boolean
+    summary: string
+    issuetype: {
+      iconUrl: string
+    }
+    status: {
+      name: string
+    }
+    assignee: {
+      accountId: string
+      avatarUrls: {
+        '48x48': string
+      }
+    }
+    epic: {
+      summary: string
+    }
+    resolution: {
+      name: string
+    }
+    resolutiondate: string
+    customfield_10028: string
+    statuscategorychangedate: string
+  }
+  rank: number
+}
+
+const issues = ref<Issue[]>([])
 
 const emit = defineEmits(['selected'])
 
 watch(data, setIssues, { immediate: true })
 
-function daysInStatus(issue) {
-  return Math.abs($dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))) + 1
+function daysInStatus(issue: Issue) {
+  const changeDate = $dayjs(issue.fields.statuscategorychangedate)
+  const now = $dayjs()
+
+  // If the status changed today, return 1
+  if (changeDate.format('YYYY-MM-DD') === now.format('YYYY-MM-DD')) return 1
+
+  // If it changed yesterday but less than 24 hours ago, return 1
+  const isYesterday =
+    now.subtract(1, 'day').format('YYYY-MM-DD') === changeDate.format('YYYY-MM-DD')
+  if (isYesterday && now.diff(changeDate, 'hours') < 24) return 1
+
+  // Otherwise calculate business days
+  return $dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))
 }
 
 function setIssues() {
@@ -87,14 +126,14 @@ function setIssues() {
     'next-up': notStartedIssues,
   }
 
-  issues.value = issuesByFilter[props.filter]()
+  issues.value = issuesByFilter[props.filter]() || []
 }
 
 function recentlyCompletedIssues() {
-  if (!data.value) return
+  if (!data.value) return []
 
   const issues = data.value.issues.filter(
-    issue =>
+    (issue: Issue) =>
       wasCompletedOnPreviousWorkDay(issue.fields.resolutiondate) &&
       issue.fields?.resolution?.name === 'Done' &&
       issue.fields.status.name === 'Done',
@@ -106,7 +145,7 @@ function recentlyCompletedIssues() {
 function inProgressIssues() {
   if (!data.value) return
 
-  const issues = data.value.issues.filter(issue =>
+  const issues = data.value.issues.filter((issue: Issue) =>
     ['In Progress', 'UAT', 'UX Review'].includes(issue.fields?.status?.name),
   )
 
@@ -115,6 +154,7 @@ function inProgressIssues() {
   return orderBy(
     issuesGroupedByUser,
     [group => Math.max(...group.map(i => daysInStatus(i))), 'desc'],
+    // @ts-expect-error
     ['fields.assignee.accountId', 'asc'],
   ).flat()
 }
@@ -122,12 +162,14 @@ function inProgressIssues() {
 function notStartedIssues() {
   if (!data.value) return
 
-  const issues = data.value.issues.filter(issue => ['To Do'].includes(issue.fields?.status?.name))
+  const issues = data.value.issues.filter((issue: Issue) =>
+    ['To Do'].includes(issue.fields?.status?.name),
+  )
 
   return sortIssuesByAssignee(issues)
 }
 
-function sortIssuesByAssignee(issues) {
+function sortIssuesByAssignee(issues: Issue[]) {
   const shuffledAccountIds = shuffle([
     ...new Set(issues.filter(i => !!i.fields?.assignee).map(i => i.fields.assignee.accountId)),
   ])
@@ -135,7 +177,7 @@ function sortIssuesByAssignee(issues) {
   shuffledAccountIds.forEach(user => {
     const userIssues = issues.filter(i => i.fields?.assignee?.accountId === user)
 
-    userIssues.forEach(issue => {
+    userIssues.forEach((issue: Issue) => {
       issue.rank = shuffledAccountIds.indexOf(user)
     })
   })
@@ -143,9 +185,8 @@ function sortIssuesByAssignee(issues) {
   return sortBy(issues, ['rank'])
 }
 
-function wasCompletedOnPreviousWorkDay(date) {
+function wasCompletedOnPreviousWorkDay(date: string) {
   if (!date) return
-  // @ts-ignore
   const lastBusinessDay = $dayjs().subtractBusinessTime(1, 'day').set('hour', 10).set('minute', 30)
   const resolutionDate = $dayjs(date)
 

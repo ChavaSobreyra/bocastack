@@ -5,17 +5,15 @@
     >
       <div class="relative my-6 mx-auto max-w-3xl">
         <div
-          class="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none"
+          class="relative flex w-full flex-col rounded-lg border-0 bg-slate-900 shadow-lg outline-none focus:outline-none"
         >
           <div class="relative flex-auto p-6">
-            <p class="my-4 text-lg leading-relaxed text-slate-500">
+            <p class="my-4 text-lg leading-relaxed">
               {{ question }}
             </p>
           </div>
 
-          <div
-            class="flex items-center justify-end rounded-b border-t border-solid border-slate-200 p-6"
-          >
+          <div class="flex items-center justify-end p-6">
             <button
               class="mr-1 mb-1 rounded border border-solid border-red-500 bg-transparent px-6 py-3 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear hover:bg-red-500 hover:text-white focus:outline-none active:bg-red-600"
               type="button"
