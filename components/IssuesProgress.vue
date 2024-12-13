@@ -122,10 +122,10 @@ const sprintName = computed(() => props.issues[0]?.fields?.sprint?.name || 'Curr
 
 const totalPoints = computed(() =>
   props.issues
-    .filter(i => i.fields?.customfield_10028 != null) // More defensive null check
+    .filter(i => i.fields?.customfield_10028 != null)
     .map(i => {
       const points = Number(i.fields.customfield_10028)
-      return isNaN(points) ? 0 : points // Handle any NaN values
+      return isNaN(points) ? 0 : points
     })
     .reduce((sum, points) => sum + points, 0),
 )
