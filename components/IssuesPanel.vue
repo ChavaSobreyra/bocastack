@@ -109,23 +109,25 @@ function processContent(text: string, attachments: any[]) {
   let updatedText = text
 
   attachments?.forEach(attachment => {
-    const relativePattern = new RegExp(`/rest/api/3/attachment/content/${attachment.id}`, 'g')
-    const fullPattern = new RegExp(
-      `https://[^/]+/rest/api/3/attachment/content/${attachment.id}`,
-      'g',
-    )
+    if (isVideo(attachment.filename)) {
+      const embedPattern = new RegExp(
+        `<div class="embeddedObject">.*?${attachment.id}.*?</div>`,
+        'gs',
+      )
+      updatedText = updatedText.replace(embedPattern, '')
+    } else {
+      const relativePattern = new RegExp(`/rest/api/3/attachment/content/${attachment.id}`, 'g')
+      const fullPattern = new RegExp(
+        `https://[^/]+/rest/api/3/attachment/content/${attachment.id}`,
+        'g',
+      )
 
-    const contentUrl = `${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}?atlassian-token=no-check`
+      const contentUrl = `${jiraBaseUrl}/rest/api/3/attachment/content/${attachment.id}?atlassian-token=no-check`
 
-    // Check if the attachment is an MP4 file
-    if (attachment.filename.toLowerCase().endsWith('.mp4'))
-      // Replace the attachment URL with the video element
-      updatedText = updatedText.replace(relativePattern, '#').replace(fullPattern, '#')
-    // Handle non-video attachments as before
-    else
       updatedText = updatedText
         .replace(relativePattern, contentUrl)
         .replace(fullPattern, contentUrl)
+    }
   })
 
   // Add standard link styling
