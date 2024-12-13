@@ -129,7 +129,7 @@ const totalPoints = computed(() =>
     })
     .reduce((sum, points) => sum + points, 0),
 )
-console.log(totalPoints.value)
+
 const donePoints = props.issues
   .filter(i => i.fields.customfield_10028 && i.fields.resolutiondate)
   .map(i => Number(i.fields.customfield_10028))
