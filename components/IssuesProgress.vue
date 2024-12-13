@@ -102,7 +102,7 @@
           class="text-xs"
           :class="{
             'text-emerald-600': donePoints >= expectedDonePoints,
-            'text-red-600': donePoints < expectedDonePoints,
+            'font-semibold text-rose-500': donePoints < expectedDonePoints,
           }"
         >
           {{ donePoints >= expectedDonePoints ? 'Sustainable pace' : 'Increased velocity needed' }}
