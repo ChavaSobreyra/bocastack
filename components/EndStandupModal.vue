@@ -5,7 +5,7 @@
     >
       <div class="relative my-6 mx-auto max-w-3xl">
         <div
-          class="relative flex w-full flex-col rounded-lg border-0 bg-slate-900 shadow-lg outline-none focus:outline-none"
+          class="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none dark:bg-slate-900"
         >
           <div class="relative flex-auto p-6">
             <p class="my-4 text-lg leading-relaxed">

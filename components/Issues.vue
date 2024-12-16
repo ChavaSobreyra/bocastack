@@ -1,19 +1,19 @@
 <template>
-  <ul role="list" class="space-y-2 divide-y divide-slate-700/30">
+  <ul role="list" class="space-y-2">
     <li
       v-for="issue of issues"
       :key="issue.id"
-      class="group grid cursor-pointer select-none grid-flow-col rounded-lg bg-slate-700/30 p-4 transition-all duration-200 hover:scale-105 hover:bg-slate-700/80"
+      class="group grid cursor-pointer select-none grid-flow-col rounded-lg border p-4 transition-all duration-200 hover:scale-105 hover:bg-slate-300/80 dark:border-none dark:bg-slate-700/30 dark:hover:bg-slate-700/80"
       :class="{
-        'scale-105 bg-slate-700/80': props.selectedIssueId === issue.id,
+        'scale-105 bg-slate-300/80 dark:bg-slate-700/80': props.selectedIssueId === issue.id,
         'bg-transparent': props.selectedIssueId !== issue.id,
       }"
       @click="emit('selected', issue.id)"
     >
-      <div class="items-center space-y-2 text-slate-100">
+      <div class="items-center space-y-2 text-slate-900 dark:text-slate-100">
         <div class="flex space-x-2">
           <img class="h-6 w-6" :src="issue.fields.issuetype.iconUrl" alt="" />
-          <Badge class="rounded-md bg-slate-900 py-1 px-2 text-sm">
+          <Badge class="rounded-md bg-slate-200 py-1 px-2 text-sm dark:bg-slate-900">
             {{ issue.fields.customfield_10028 ? issue.fields.customfield_10028 : '-' }} points
           </Badge>
           <div v-if="filter === 'in-progress'" class="pt-1 text-sm">
@@ -26,12 +26,12 @@
             <span v-if="issue.fields.flagged" class="text-red-400">🚩</span>
             <span
               v-if="['UAT', 'UX Review'].includes(issue.fields.status.name)"
-              class="rounded-full bg-blue-500/20 px-2 py-0.5 text-xs font-medium text-blue-200"
+              class="rounded-full bg-blue-400 px-2 py-0.5 text-xs font-medium text-white dark:bg-blue-500/20 dark:text-blue-200"
             >
               UAT
             </span>
           </div>
-          <span class="text-xs text-slate-400">
+          <span class="text-xs text-slate-800 dark:text-slate-400">
             {{ issue.fields.epic?.summary }}
           </span>
         </div>
@@ -115,8 +115,8 @@ function daysInStatus(issue: Issue) {
     now.subtract(1, 'day').format('YYYY-MM-DD') === changeDate.format('YYYY-MM-DD')
   if (isYesterday && now.diff(changeDate, 'hours') < 24) return 1
 
-  // Otherwise calculate business days
-  return $dayjs().businessDaysDiff($dayjs(issue.fields.statuscategorychangedate))
+  // Calculate business days between changeDate and now
+  return Math.abs($dayjs(issue.fields.statuscategorychangedate).businessDaysDiff(now))
 }
 
 function setIssues() {
@@ -134,7 +134,7 @@ function recentlyCompletedIssues() {
 
   const issues = data.value.issues.filter(
     (issue: Issue) =>
-      wasCompletedOnPreviousWorkDay(issue.fields.resolutiondate) &&
+      wasCompletedSincePreviousWorkDay(issue.fields.resolutiondate) &&
       issue.fields?.resolution?.name === 'Done' &&
       issue.fields.status.name === 'Done',
   )
@@ -185,11 +185,12 @@ function sortIssuesByAssignee(issues: Issue[]) {
   return sortBy(issues, ['rank'])
 }
 
-function wasCompletedOnPreviousWorkDay(date: string) {
-  if (!date) return
-  const lastBusinessDay = $dayjs().subtractBusinessTime(1, 'day').set('hour', 10).set('minute', 30)
-  const resolutionDate = $dayjs(date)
+function wasCompletedSincePreviousWorkDay(date: string) {
+  if (!date) return false
 
-  return lastBusinessDay.isBefore(resolutionDate)
+  const resolutionDate = $dayjs(date)
+  const lastBusinessDay = $dayjs().subtractBusinessTime(1, 'day').startOf('day')
+
+  return resolutionDate.isAfter(lastBusinessDay)
 }
 </script>

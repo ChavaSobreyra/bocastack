@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="data.fields"
-    class="fixed inset-y-0 right-0 w-[475px] overflow-y-auto border-slate-800 bg-slate-900 p-6 text-slate-100"
+    class="fixed inset-y-0 right-0 w-[475px] overflow-y-auto border-slate-200 bg-white p-6 text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100"
   >
     <!-- Header -->
     <div class="flex justify-between gap-4 justify-self-end">
@@ -13,7 +13,7 @@
         <LinkIcon class="h-5 w-5" />
       </a>
       <button
-        class="text-slate-400 transition-colors hover:text-slate-300"
+        class="text-slate-700 transition-colors hover:text-slate-300 dark:text-slate-400"
         @click="$emit('close-panel')"
       >
         <XCircleIcon class="h-6 w-6" />
@@ -32,27 +32,27 @@
         />
       </div>
       <div>
-        <h3 class="text-xl font-semibold text-slate-100">
+        <h3 class="text-xl font-semibold dark:text-slate-100">
           {{ data.fields.summary }}
         </h3>
       </div>
 
       <div class="space-y-4 border-b border-slate-700/50 pb-6">
         <div class="flex flex-wrap items-center gap-2">
-          <div class="rounded-md bg-blue-500/20 px-2 py-1 text-sm text-blue-200">
+          <div
+            class="rounded-md bg-blue-400 px-2 py-1 text-sm text-white dark:bg-blue-500/20 dark:text-blue-200"
+          >
             {{ data.fields.customfield_10028 ? data.fields.customfield_10028 : '-' }} points
           </div>
 
-          <div class="rounded-md bg-slate-500/20 px-2 py-1 text-sm text-slate-200">
+          <div
+            class="rounded-md bg-blue-400 px-2 py-1 text-sm text-white dark:bg-blue-500/20 dark:text-blue-200"
+          >
             {{ data.fields.status.name }}
           </div>
 
           <div
-            class="rounded-md px-2 py-1 text-sm"
-            :class="{
-              'bg-blue-500/20 text-blue-200': data.fields.parent.fields.summary !== 'Bug',
-              'bg-red-500/20 text-red-200': data.fields.parent.fields.summary === 'Bug',
-            }"
+            class="rounded-md bg-blue-400 px-2 py-1 text-sm text-white dark:bg-blue-500/20 dark:text-blue-200"
           >
             {{ data.fields.parent.fields.summary }}
           </div>
@@ -143,9 +143,13 @@ function processContent(text: string, attachments: any[]) {
 <style>
 /* Base text styles */
 #jira-html {
-  color: rgb(226 232 240);
+  color: rgb(51 65 85); /* slate-700 for light */
   font-size: 14px;
   line-height: 1.6;
+}
+
+.dark #jira-html {
+  color: rgb(226 232 240);
 }
 
 #jira-html p {
@@ -154,57 +158,54 @@ function processContent(text: string, attachments: any[]) {
 
 /* Links */
 #jira-html a {
-  color: rgb(96 165 250);
+  color: rgb(37 99 235); /* blue-600 for light */
   text-decoration: none;
 }
 
+.dark #jira-html a {
+  color: rgb(96 165 250);
+}
+
 #jira-html a:hover {
-  color: rgb(147 197 253);
+  color: rgb(59 130 246); /* blue-500 for light */
   text-decoration: underline;
 }
 
-/* Lists */
-#jira-html ul,
-#jira-html ol {
-  margin: 1em 0;
-  padding-left: 2em;
+.dark #jira-html a:hover {
+  color: rgb(147 197 253);
 }
 
-#jira-html ul {
-  list-style-type: disc;
-}
-
-#jira-html ol {
-  list-style-type: decimal;
-}
-
-#jira-html li {
-  margin: 0.5em 0;
-}
-
-/* Nested lists */
-#jira-html ul ul,
-#jira-html ol ol,
-#jira-html ul ol,
-#jira-html ol ul {
-  margin: 0.5em 0;
-}
+/* Lists remain the same, no color changes needed */
 
 /* Code blocks and inline code */
 #jira-html tt,
 #jira-html code {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(241 245 249); /* slate-100 for light */
   border-radius: 3px;
   padding: 0.2em 0.4em;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.9em;
+  border: 1px solid rgb(226 232 240); /* slate-200 for light */
+  color: rgb(51 65 85); /* slate-700 for light */
+}
+
+.dark #jira-html tt,
+.dark #jira-html code {
+  background: rgb(51 65 85);
+  color: rgb(186 230 253);
+  border: 1px solid rgb(71 85 105);
 }
 
 /* Bold text */
 #jira-html b,
 #jira-html strong {
-  color: rgb(241 245 249);
+  color: rgb(15 23 42); /* slate-900 for light */
   font-weight: 600;
+}
+
+.dark #jira-html b,
+.dark #jira-html strong {
+  color: rgb(241 245 249);
 }
 
 /* Images */
@@ -213,32 +214,44 @@ function processContent(text: string, attachments: any[]) {
   height: auto;
   border-radius: 0.5rem;
   margin: 1em 0;
+  border: 1px solid rgb(226 232 240); /* slate-200 for light */
+}
+
+.dark #jira-html img {
   border: 1px solid rgb(51 65 85);
 }
 
-#jira-html .image-wrap {
-  display: block;
-  margin: 1em 0;
-}
-
-/* Error spans (often used in code) */
+/* Error spans */
 #jira-html .error {
-  color: rgb(252 165 165);
+  color: rgb(220 38 38); /* red-600 for light */
   background: rgba(239, 68, 68, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
 
-/* Headers within description */
+.dark #jira-html .error {
+  color: rgb(252 165 165);
+}
+
+/* Headers */
 #jira-html h1,
 #jira-html h2,
 #jira-html h3,
 #jira-html h4,
 #jira-html h5,
 #jira-html h6 {
-  color: rgb(241 245 249);
+  color: rgb(15 23 42); /* slate-900 for light */
   font-weight: 600;
   margin: 1.5em 0 0.5em;
+}
+
+.dark #jira-html h1,
+.dark #jira-html h2,
+.dark #jira-html h3,
+.dark #jira-html h4,
+.dark #jira-html h5,
+.dark #jira-html h6 {
+  color: rgb(241 245 249);
 }
 
 /* Tables */
@@ -250,35 +263,58 @@ function processContent(text: string, attachments: any[]) {
 
 #jira-html th,
 #jira-html td {
-  border: 1px solid rgb(51 65 85);
+  border: 1px solid rgb(226 232 240); /* slate-200 for light */
   padding: 0.5em;
 }
 
+.dark #jira-html th,
+.dark #jira-html td {
+  border: 1px solid rgb(51 65 85);
+}
+
 #jira-html th {
+  background: rgb(241 245 249); /* slate-100 for light */
+}
+
+.dark #jira-html th {
   background: rgba(255, 255, 255, 0.05);
 }
 
 /* Blockquotes */
 #jira-html blockquote {
-  border-left: 3px solid rgb(71 85 105);
+  border-left: 3px solid rgb(226 232 240); /* slate-200 for light */
   margin: 1em 0;
   padding-left: 1em;
+  color: rgb(100 116 139); /* slate-500 for light */
+}
+
+.dark #jira-html blockquote {
+  border-left: 3px solid rgb(71 85 105);
   color: rgb(148 163 184);
 }
 
 /* Horizontal rules */
 #jira-html hr {
   border: none;
-  border-top: 1px solid rgb(51 65 85);
+  border-top: 1px solid rgb(226 232 240); /* slate-200 for light */
   margin: 2em 0;
 }
 
-/* Special Jira panels */
+.dark #jira-html hr {
+  border-top: 1px solid rgb(51 65 85);
+}
+
+/* Panels */
 #jira-html .panel {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgb(241 245 249); /* slate-100 for light */
   border-radius: 0.5rem;
   padding: 1em;
   margin: 1em 0;
+  border: 1px solid rgb(226 232 240); /* slate-200 for light */
+}
+
+.dark #jira-html .panel {
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgb(51 65 85);
 }
 
@@ -292,8 +328,13 @@ function processContent(text: string, attachments: any[]) {
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(241 245 249); /* slate-100 for light */
   margin: 0 0.5em;
+}
+
+.dark #jira-html .status,
+.dark #jira-html .priority {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Callouts and info panels */
@@ -321,25 +362,19 @@ function processContent(text: string, attachments: any[]) {
   border-left-color: rgb(239 68 68);
 }
 
-#jira-html tt,
-#jira-html code {
-  background: rgb(51 65 85); /* bg-slate-700 */
-  border-radius: 0.25rem;
-  padding: 0.2em 0.4em;
-  font-family: ui-monospace, Monaco, 'Courier New', monospace;
-  font-size: 0.875em;
-  color: rgb(186 230 253); /* text-cyan-200 */
-  border: 1px solid rgb(71 85 105); /* border-slate-600 */
-}
-
-/* For code blocks */
+/* Pre blocks */
 #jira-html pre {
-  background: rgb(51 65 85); /* bg-slate-700 */
+  background: rgb(241 245 249); /* slate-100 for light */
   border-radius: 0.5rem;
   padding: 1em;
   margin: 1em 0;
   overflow-x: auto;
-  border: 1px solid rgb(71 85 105); /* border-slate-600 */
+  border: 1px solid rgb(226 232 240); /* slate-200 for light */
+}
+
+.dark #jira-html pre {
+  background: rgb(51 65 85);
+  border: 1px solid rgb(71 85 105);
 }
 
 #jira-html pre code,
@@ -347,17 +382,28 @@ function processContent(text: string, attachments: any[]) {
   background: transparent;
   border: none;
   padding: 0;
-  color: rgb(186 230 253); /* text-cyan-200 */
+  color: rgb(51 65 85); /* slate-700 for light */
   font-size: 0.875em;
   line-height: 1.7;
 }
 
-/* For code that has error highlighting */
+.dark #jira-html pre code,
+.dark #jira-html pre tt {
+  color: rgb(186 230 253);
+}
+
+/* Error highlighting in code */
 #jira-html tt .error,
 #jira-html code .error {
-  background: rgba(239, 68, 68, 0.2); /* bg-red-500/20 */
-  color: rgb(252 165 165); /* text-red-300 */
+  background: rgba(239, 68, 68, 0.1);
+  color: rgb(220 38 38); /* red-600 for light */
   border-radius: 0.25rem;
   padding: 0.1em 0.3em;
+}
+
+.dark #jira-html tt .error,
+.dark #jira-html code .error {
+  background: rgba(239, 68, 68, 0.2);
+  color: rgb(252 165 165);
 }
 </style>

@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     // ? https://tailwindcss.nuxtjs.org/tailwind/config/#referencing-in-the-application
     exposeConfig: true,
     viewer: true,
+    cssPath: '~/assets/css/tailwind.css',
   },
 
   googleFonts: {

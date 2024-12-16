@@ -1,19 +1,22 @@
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 p-6 text-gray-50"
+    class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-emerald-100 p-6 text-slate-900 dark:from-slate-900 dark:via-slate-800 dark:to-emerald-900 dark:text-gray-50"
   >
     <div class="mx-auto max-w-3xl space-y-6">
       <!-- Header -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-slate-100">Standup Dashboard</h1>
-        <p class="text-slate-300">Good morning team! ☀️</p>
+      <div class="mb-8 flex justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100">Standup Dashboard</h1>
+          <p class="text-slate-600 dark:text-slate-300">Good morning team! ☀️</p>
+        </div>
+        <ThemeToggle />
       </div>
 
       <!-- Recently Completed Section -->
       <div
-        class="space-y-2 rounded-lg border border-slate-700/50 bg-slate-800/40 p-6 backdrop-blur"
+        class="space-y-2 rounded-lg border border-slate-300/50 bg-white/40 p-6 backdrop-blur dark:border-slate-700/50 dark:bg-slate-800/40"
       >
-        <span class="text-xl font-bold text-slate-100">Recently completed</span>
+        <span class="text-xl font-bold text-slate-900 dark:text-slate-100">Recently completed</span>
         <Issues
           v-if="activeSprintId"
           :active-sprint-id="activeSprintId"
@@ -27,15 +30,15 @@
       <SprintProgress
         v-if="activeSprintId"
         :active-sprint-id="activeSprintId"
-        class="rounded-lg border border-slate-700/50 bg-slate-800/40 p-6 backdrop-blur"
+        class="rounded-lg border border-slate-300/50 bg-white/40 p-6 backdrop-blur dark:border-slate-700/50 dark:bg-slate-800/40"
       />
 
       <!-- In Progress Section -->
       <div>
         <div
-          class="space-y-2 rounded-lg border border-slate-700/50 bg-slate-800/40 p-6 backdrop-blur"
+          class="space-y-2 rounded-lg border border-slate-300/50 bg-white/40 p-6 backdrop-blur dark:border-slate-700/50 dark:bg-slate-800/40"
         >
-          <span class="text-xl font-bold text-slate-100">Work in progress</span>
+          <span class="text-xl font-bold text-slate-900 dark:text-slate-100">Work in progress</span>
           <Issues
             v-if="activeSprintId"
             :active-sprint-id="activeSprintId"
@@ -48,9 +51,9 @@
 
       <!-- Upcoming Section -->
       <div
-        class="space-y-2 rounded-lg border border-slate-700/50 bg-slate-800/40 p-6 backdrop-blur"
+        class="space-y-2 rounded-lg border border-slate-300/50 bg-white/40 p-6 backdrop-blur dark:border-slate-700/50 dark:bg-slate-800/40"
       >
-        <span class="text-xl font-bold text-slate-100">Upcoming</span>
+        <span class="text-xl font-bold text-slate-900 dark:text-slate-100">Upcoming</span>
         <Issues
           v-if="activeSprintId"
           :active-sprint-id="activeSprintId"
@@ -60,6 +63,7 @@
         />
       </div>
     </div>
+
     <!-- Modals and Panels -->
     <EndStandupModal v-if="showModal" @close-modal="showModal = false" />
     <IssuesPanel
@@ -73,6 +77,35 @@
 <script setup lang="ts">
 useHead({
   title: 'Standup',
+  script: [
+    {
+      innerHTML: `
+        if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        }
+      `,
+      tagPriority: 'critical',
+    },
+  ],
+  style: [
+    {
+      innerHTML: `
+        html.dark {
+          background: rgb(15 23 42);
+        }
+        html {
+          background: white;
+        }
+        html.dark body {
+          background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(6 78 59));
+        }
+        html body {
+          background: linear-gradient(to bottom right, rgb(241 245 249), rgb(226 232 240), rgb(220 252 231));
+        }
+      `,
+      tagPriority: 'critical',
+    },
+  ],
 })
 
 const route = useRoute()

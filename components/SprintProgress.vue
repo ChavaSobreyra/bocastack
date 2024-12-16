@@ -1,6 +1,8 @@
 <template>
   <div>
-    <span class="mb-2 text-xl font-bold text-slate-100">Sprint Progress</span>
+    <span class="light:text-slate-900 mb-2 text-xl font-bold dark:text-slate-100">
+      Sprint Progress
+    </span>
     <IssuesProgress v-if="data.issues" :issues="data.issues" />
   </div>
 </template>
