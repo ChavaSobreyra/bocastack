@@ -77,6 +77,35 @@
 <script setup lang="ts">
 useHead({
   title: 'Standup',
+  script: [
+    {
+      innerHTML: `
+        if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        }
+      `,
+      tagPriority: 'critical',
+    },
+  ],
+  style: [
+    {
+      innerHTML: `
+        html.dark {
+          background: rgb(15 23 42);
+        }
+        html {
+          background: white;
+        }
+        html.dark body {
+          background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(6 78 59));
+        }
+        html body {
+          background: linear-gradient(to bottom right, rgb(241 245 249), rgb(226 232 240), rgb(220 252 231));
+        }
+      `,
+      tagPriority: 'critical',
+    },
+  ],
 })
 
 const route = useRoute()
