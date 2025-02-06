@@ -52,6 +52,7 @@
           </div>
 
           <div
+            v-if="data.fields.parent && data.fields.parent.fields"
             class="rounded-md bg-blue-400 px-2 py-1 text-sm text-white dark:bg-blue-500/20 dark:text-blue-200"
           >
             {{ data.fields.parent.fields.summary }}
